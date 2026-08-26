@@ -1,297 +1,401 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Daily Bread Ministries — Bible Study</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Daily Bread Ministries — Bible Study</title>
 
-<style>
-body { font-family: Georgia, serif; background:#d2b48c; margin:0; color:#222; }
+    <style>
+        :root {
+            --primary-dark: #000;
+            --primary-light: #f5e6cc;
+            --bg-tan: #d2b48c;
+            --text-dark: #222;
+            --text-muted: #5f452c;
+            --accent-brown: #8b4513;
+            --input-bg: #fffaf0;
+            --border-tan: #dfc9a5;
+            --border-input: #b99a70;
+            --hover-dark: #333;
+        }
 
-header {
-    background:black;
-    color:#f5e6cc;
-    text-align:center;
-    padding:25px;
-}
+        body {
+            font-family: Georgia, serif;
+            background: var(--bg-tan);
+            margin: 0;
+            color: var(--text-dark);
+        }
 
-.logo {
-    width:180px;
-    height:auto;
-    margin-bottom:10px;
-}
+        header {
+            background: var(--primary-dark);
+            color: var(--primary-light);
+            text-align: center;
+            padding: 25px;
+        }
 
-.section {
-    max-width:1100px;
-    margin:auto;
-    padding:20px;
-}
+        .logo {
+            width: 180px;
+            height: auto;
+            margin-bottom: 10px;
+        }
 
-.nav-buttons {
-    display:flex;
-    justify-content:center;
-    gap:10px;
-    margin-bottom:20px;
-    flex-wrap:wrap;
-}
+        .section {
+            max-width: 1100px;
+            margin: auto;
+            padding: 20px;
+        }
 
-.nav-buttons button {
-    background:black;
-    color:#f5e6cc;
-    padding:10px 20px;
-    border:none;
-    cursor:pointer;
-    border-radius:4px;
-}
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
 
-.nav-buttons button:hover { background:#333; }
+        .nav-buttons button {
+            background: var(--primary-dark);
+            color: var(--primary-light);
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
 
-.card {
-    background:#f5e6cc;
-    padding:20px;
-    margin-bottom:20px;
-    border-radius:8px;
-}
+        .nav-buttons button:hover {
+            background: var(--hover-dark);
+        }
 
-button, select, input, textarea {
-    font-family:Georgia, serif;
-}
+        .card {
+            background: var(--primary-light);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
 
-button {
-    background:black;
-    color:#f5e6cc;
-    padding:8px 12px;
-    border:none;
-    cursor:pointer;
-    border-radius:4px;
-}
+        button, select, input, textarea {
+            font-family: Georgia, serif;
+        }
 
-button:hover { background:#333; }
+        button {
+            background: var(--primary-dark);
+            color: var(--primary-light);
+            padding: 8px 12px;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
 
-button:disabled {
-    opacity:.55;
-    cursor:not-allowed;
-}
+        button:hover {
+            background: var(--hover-dark);
+        }
 
-.plan-header {
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:15px;
-    flex-wrap:wrap;
-}
+        button:disabled {
+            opacity: 0.55;
+            cursor: not-allowed;
+        }
 
-.plan-controls {
-    display:flex;
-    gap:8px;
-    flex-wrap:wrap;
-}
+        .plan-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
 
-select, input, textarea {
-    padding:9px;
-    border:1px solid #b99a70;
-    border-radius:4px;
-    background:#fffaf0;
-    color:#222;
-}
+        .plan-controls {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
 
-.progress-track {
-    width:100%;
-    height:16px;
-    background:#d2b48c;
-    border-radius:10px;
-    overflow:hidden;
-}
+        select, input, textarea {
+            padding: 9px;
+            border: 1px solid var(--border-input);
+            border-radius: 4px;
+            background: var(--input-bg);
+            color: var(--text-dark);
+        }
 
-.progress-bar {
-    height:100%;
-    width:0;
-    background:#8b4513;
-    transition:width .3s ease;
-}
+        .progress-track {
+            width: 100%;
+            height: 16px;
+            background: var(--bg-tan);
+            border-radius: 10px;
+            overflow: hidden;
+        }
 
-.day-list {
-    display:flex;
-    gap:6px;
-    flex-wrap:wrap;
-    margin-top:14px;
-}
+        .progress-bar {
+            height: 100%;
+            width: 0;
+            background: var(--accent-brown);
+            transition: width 0.3s ease;
+        }
 
-.day-button {
-    padding:7px 10px;
-    min-height:36px;
-}
+        .day-list {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-top: 14px;
+        }
 
-.day-button.complete {
-    background:#8b4513;
-    color:#f5e6cc;
-}
+        .day-button {
+            padding: 7px 10px;
+            min-height: 36px;
+        }
 
-.day-button.today {
-    outline:3px solid #000;
-    outline-offset:1px;
-}
+        .day-button.complete {
+            background: var(--accent-brown);
+            color: var(--primary-light);
+        }
 
-.grid {
-    display:grid;
-    grid-template-columns:minmax(0,1fr) 360px;
-    gap:20px;
-}
+        .day-button.today {
+            outline: 3px solid var(--primary-dark);
+            outline-offset: 1px;
+        }
 
-.reader {
-    max-height:60vh;
-    overflow:auto;
-    background:#fffaf0;
-    border-radius:6px;
-    padding:15px;
-}
+        .grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 360px;
+            gap: 20px;
+        }
 
-.verse {
-    display:flex;
-    gap:12px;
-    padding:12px 8px;
-    border-bottom:1px solid #dfc9a5;
-    cursor:pointer;
-}
+        .reader {
+            max-height: 60vh;
+            overflow: auto;
+            background: var(--input-bg);
+            border-radius: 6px;
+            padding: 15px;
+        }
 
-.verse:hover { background:#f5e6cc; }
+        .verse {
+            display: flex;
+            gap: 12px;
+            padding: 12px 8px;
+            border-bottom: 1px solid var(--border-tan);
+            cursor: pointer;
+        }
 
-.verse-number {
-    min-width:32px;
-    font-weight:bold;
-    color:#8b4513;
-}
+        .verse:hover {
+            background: var(--primary-light);
+        }
 
-.verse-text { flex:1; }
+        .verse-number {
+            min-width: 32px;
+            font-weight: bold;
+            color: var(--accent-brown);
+        }
 
-.note-list {
-    max-height:42vh;
-    overflow:auto;
-}
+        .verse-text {
+            flex: 1;
+        }
 
-.note-card {
-    background:#fffaf0;
-    border-left:4px solid #8b4513;
-    padding:10px;
-    margin-bottom:10px;
-    border-radius:4px;
-}
+        .note-list {
+            max-height: 42vh;
+            overflow: auto;
+        }
 
-.small {
-    font-size:.9em;
-    color:#5f452c;
-}
+        .note-card {
+            background: var(--input-bg);
+            border-left: 4px solid var(--accent-brown);
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
 
-.status {
-    padding:10px;
-    margin-bottom:15px;
-    border-radius:5px;
-    background:#f5e6cc;
-    display:none;
-}
+        .small {
+            font-size: 0.9em;
+            color: var(--text-muted);
+        }
 
-.status.show { display:block; }
+        .status {
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            background: var(--primary-light);
+            display: none;
+        }
 
-.status.success { border-left:5px solid #8b4513; }
+        .status.show {
+            display: block;
+        }
 
-.modal {
-    display:none;
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.65);
-    align-items:center;
-    justify-content:center;
-    padding:15px;
-    z-index:1000;
-}
+        .status.success {
+            border-left: 5px solid var(--accent-brown);
+        }
 
-.modal.show { display:flex; }
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.65);
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            z-index: 1000;
+        }
 
-.modal-card {
-    background:#f5e6cc;
-    width:min(650px,100%);
-    max-height:90vh;
-    overflow:auto;
-    padding:20px;
-    border-radius:8px;
-}
+        .modal.show {
+            display: flex;
+        }
 
-.form-row {
-    margin-bottom:12px;
-}
+        .modal-card {
+            background: var(--primary-light);
+            width: min(650px, 100%);
+            max-height: 90vh;
+            overflow: auto;
+            padding: 20px;
+            border-radius: 8px;
+        }
 
-.form-row label {
-    display:block;
-    margin-bottom:5px;
-    font-weight:bold;
-}
+        .form-row {
+            margin-bottom: 12px;
+        }
 
-.form-row input,
-.form-row textarea,
-.form-row select {
-    width:100%;
-    box-sizing:border-box;
-}
+        .form-row label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
 
-.badge {
-    background:#8b4513;
-    color:#f5e6cc;
-    padding:3px 7px;
-    border-radius:10px;
-    font-size:.75em;
-}
+        .form-row input,
+        .form-row textarea,
+        .form-row select {
+            width: 100%;
+            box-sizing: border-box;
+        }
 
-.complete-message {
-    text-align:center;
-    padding:20px;
-    background:#fffaf0;
-    border-radius:6px;
-}
+        .badge {
+            background: var(--accent-brown);
+            color: var(--primary-light);
+            padding: 3px 7px;
+            border-radius: 10px;
+            font-size: 0.75em;
+        }
 
-@media(max-width:768px) {
-    header { padding:18px 15px; }
-    .logo { width:130px; }
-    header h1 { font-size:1.5em; margin:8px 0; }
-    header p { font-size:.9em; margin:0; }
+        .complete-message {
+            text-align: center;
+            padding: 20px;
+            background: var(--input-bg);
+            border-radius: 6px;
+        }
 
-    .section { padding:15px; }
+        .flex-center-between {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
 
-    .nav-buttons {
-        flex-direction:column;
-        align-items:stretch;
-    }
+        .flex-end {
+            display: flex;
+            justify-content: flex-end;
+        }
 
-    .nav-buttons button { width:100%; }
+        .flex-gap {
+            display: flex;
+            gap: 7px;
+            flex-wrap: wrap;
+        }
 
-    .grid { grid-template-columns:1fr; }
+        .mt-10 {
+            margin-top: 10px;
+        }
 
-    .card { padding:15px; }
+        .mt-12 {
+            margin-top: 12px;
+        }
 
-    .plan-header { align-items:stretch; }
+        .mt-15 {
+            margin-top: 15px;
+        }
 
-    .plan-controls {
-        flex-direction:column;
-    }
+        .mb-10 {
+            margin-bottom: 10px;
+        }
 
-    .plan-controls select,
-    .plan-controls button {
-        width:100%;
-    }
+        .mb-12 {
+            margin-bottom: 12px;
+        }
 
-    .reader { max-height:none; }
+        @media (max-width: 768px) {
+            header {
+                padding: 18px 15px;
+            }
 
-    body.is-mobile button {
-        min-height:44px;
-        font-size:1em;
-    }
-}
+            .logo {
+                width: 130px;
+            }
 
-@media(max-width:480px) {
-    header h1 { font-size:1.25em; }
-    .logo { width:100px; }
-    .section { padding:10px; }
-}
-</style>
+            header h1 {
+                font-size: 1.5em;
+                margin: 8px 0;
+            }
+
+            header p {
+                font-size: 0.9em;
+                margin: 0;
+            }
+
+            .section {
+                padding: 15px;
+            }
+
+            .nav-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .nav-buttons button {
+                width: 100%;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card {
+                padding: 15px;
+            }
+
+            .plan-header {
+                align-items: stretch;
+            }
+
+            .plan-controls {
+                flex-direction: column;
+            }
+
+            .plan-controls select,
+            .plan-controls button {
+                width: 100%;
+            }
+
+            .reader {
+                max-height: none;
+            }
+
+            body.is-mobile button {
+                min-height: 44px;
+                font-size: 1em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.25em;
+            }
+
+            .logo {
+                width: 100px;
+            }
+
+            .section {
+                padding: 10px;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -315,7 +419,7 @@ select, input, textarea {
     <div class="card">
         <div class="plan-header">
             <div>
-                <h2 style="margin:0 0 5px">Bible Reading Plan</h2>
+                <h2 style="margin: 0 0 5px">Bible Reading Plan</h2>
                 <div id="planTitle" class="small"></div>
                 <div id="todayLabel" class="small"></div>
             </div>
@@ -329,7 +433,7 @@ select, input, textarea {
 
     <!-- PROGRESS -->
     <div class="card">
-        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px">
+        <div class="flex-center-between">
             <div>
                 <strong>Plan Progress</strong>
                 <div id="progressText" class="small">0 / 12 days complete</div>
@@ -348,13 +452,13 @@ select, input, textarea {
 
         <!-- READER -->
         <section class="card">
-            <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px">
+            <div class="flex-center-between mb-12">
                 <div>
-                    <h2 style="margin:0">Bible Reader</h2>
+                    <h2 style="margin: 0">Bible Reader</h2>
                     <div id="currRef" class="small"></div>
                 </div>
 
-                <div style="display:flex;gap:7px;flex-wrap:wrap">
+                <div class="flex-gap">
                     <select id="bookSelect" title="Choose a book"></select>
                     <select id="chapterSelect" title="Choose a chapter"></select>
                     <button id="prevChap">◀</button>
@@ -366,11 +470,11 @@ select, input, textarea {
                 Loading passage...
             </div>
 
-            <div style="display:flex;justify-content:flex-end;margin-top:12px">
+            <div class="flex-end mt-12">
                 <button id="markCompleteBtn">Mark Complete</button>
             </div>
 
-            <div class="small" style="margin-top:10px">
+            <div class="small mt-10">
                 Tap a verse to select it for a note.
             </div>
         </section>
@@ -379,7 +483,7 @@ select, input, textarea {
         <aside>
 
             <div class="card">
-                <h3 style="margin-top:0">Add Note</h3>
+                <h3 style="margin-top: 0">Add Note</h3>
 
                 <div class="form-row">
                     <label>Selected Verse</label>
@@ -412,13 +516,13 @@ select, input, textarea {
                     <textarea id="noteBody" rows="6" placeholder="Write your note..."></textarea>
                 </div>
 
-                <div style="display:flex;justify-content:flex-end">
+                <div class="flex-end">
                     <button id="saveNote">Save Note</button>
                 </div>
             </div>
 
             <div class="card">
-                <div style="display:flex;justify-content:space-between;align-items:center;gap:8px">
+                <div class="flex-center-between">
                     <div>
                         <strong>Group Study</strong>
                         <span class="badge">17 members</span>
@@ -426,11 +530,11 @@ select, input, textarea {
                     <button id="regenerateSummary">Regenerate</button>
                 </div>
 
-                <div id="groupNotes" class="note-list" style="margin-top:12px"></div>
+                <div id="groupNotes" class="note-list" style="margin-top: 12px"></div>
 
-                <div style="margin-top:15px">
+                <div class="mt-15">
                     <strong>AI-Generated Group Summary</strong>
-                    <div id="aiSummary" class="small" style="padding:10px;background:#fffaf0;border-radius:5px;margin-top:8px">
+                    <div id="aiSummary" class="small" style="padding: 10px; background: var(--input-bg); border-radius: 5px; margin-top: 8px">
                         No summary yet.
                     </div>
                 </div>
@@ -448,7 +552,7 @@ select, input, textarea {
             <label>Your display name</label>
             <input id="userNameInput" placeholder="First name or display name">
         </div>
-        <div style="display:flex;justify-content:flex-end">
+        <div class="flex-end">
             <button id="saveName">Save Name</button>
         </div>
     </div>
@@ -478,17 +582,11 @@ function applyMobileClass(mobile) {
 }
 
 function detectMobileUI() {
-
-    const narrow =
-        window.matchMedia("(max-width:768px)");
-
-    const touch =
-        window.matchMedia("(pointer:coarse) and (hover:none)");
+    const narrow = window.matchMedia("(max-width: 768px)");
+    const touch = window.matchMedia("(pointer: coarse) and (hover: none)");
 
     const evaluate = () => {
-        applyMobileClass(
-            narrow.matches || touch.matches
-        );
+        applyMobileClass(narrow.matches || touch.matches);
     };
 
     evaluate();
@@ -500,7 +598,8 @@ function detectMobileUI() {
 detectMobileUI();
 
 /* =========================================================
-   FIREBASE
+   FIREBASE CONFIGURATION
+   WARNING: Consider moving credentials to a secure backend
    ========================================================= */
 
 const firebaseConfig = {
@@ -519,30 +618,23 @@ const db = getFirestore(app);
 const demoPlan = {
     id: "demo-plan-1",
     name: "Demo 12-Day Plan",
-
-    /*
-       The calendar controls the automatic day.
-
-       Aug 21 = Day 1
-       Aug 22 = Day 2
-       Aug 23 = Day 3
-       etc.
-    */
+    // The calendar controls the automatic day.
+    // Aug 21 = Day 1, Aug 22 = Day 2, etc.
     startDate: "2026-08-21",
 
     days: [
-        { day:1, ref:"John 6:22-40" },
-        { day:2, ref:"John 6:41-59" },
-        { day:3, ref:"John 6:60-71" },
-        { day:4, ref:"John 7:1-13" },
-        { day:5, ref:"John 7:14-29" },
-        { day:6, ref:"John 7:30-44" },
-        { day:7, ref:"John 7:45-52" },
-        { day:8, ref:"John 8:1-11" },
-        { day:9, ref:"John 8:12-30" },
-        { day:10, ref:"John 8:31-47" },
-        { day:11, ref:"John 8:48-59" },
-        { day:12, ref:"John 9:1-12" }
+        { day: 1, ref: "John 6:22-40" },
+        { day: 2, ref: "John 6:41-59" },
+        { day: 3, ref: "John 6:60-71" },
+        { day: 4, ref: "John 7:1-13" },
+        { day: 5, ref: "John 7:14-29" },
+        { day: 6, ref: "John 7:30-44" },
+        { day: 7, ref: "John 7:45-52" },
+        { day: 8, ref: "John 8:1-11" },
+        { day: 9, ref: "John 8:12-30" },
+        { day: 10, ref: "John 8:31-47" },
+        { day: 11, ref: "John 8:48-59" },
+        { day: 12, ref: "John 9:1-12" }
     ]
 };
 
@@ -554,50 +646,28 @@ let currentReference = "";
 let selectedVerse = null;
 
 /* =========================================================
-   ELEMENTS
+   DOM ELEMENTS
    ========================================================= */
 
-const planSelect =
-    document.getElementById("planSelect");
-
-const planDaySelect =
-    document.getElementById("planDaySelect");
-
-const reader =
-    document.getElementById("reader");
-
-const currRef =
-    document.getElementById("currRef");
-
-const todayLabel =
-    document.getElementById("todayLabel");
-
-const selectedRef =
-    document.getElementById("selectedRef");
-
-const markCompleteBtn =
-    document.getElementById("markCompleteBtn");
+const planSelect = document.getElementById("planSelect");
+const planDaySelect = document.getElementById("planDaySelect");
+const reader = document.getElementById("reader");
+const currRef = document.getElementById("currRef");
+const todayLabel = document.getElementById("todayLabel");
+const selectedRef = document.getElementById("selectedRef");
+const markCompleteBtn = document.getElementById("markCompleteBtn");
 
 /* =========================================================
    DATE HELPERS
    ========================================================= */
 
 function getTodayDateOnly() {
-
     const now = new Date();
-
-    return new Date(
-        now.getFullYear(),
-        now.getMonth(),
-        now.getDate()
-    );
+    return new Date(now.getFullYear(), now.getMonth(), now.getDate());
 }
 
 function getPlanStartDate() {
-
-    const parts =
-        currentPlan.startDate.split("-");
-
+    const parts = currentPlan.startDate.split("-");
     return new Date(
         Number(parts[0]),
         Number(parts[1]) - 1,
@@ -605,158 +675,79 @@ function getPlanStartDate() {
     );
 }
 
-/*
-   Automatically determines the current calendar day
-   of the reading plan.
-*/
-
+/**
+ * Automatically determines the current calendar day of the reading plan.
+ */
 function getAutomaticPlanDay() {
+    const start = getPlanStartDate();
+    const today = getTodayDateOnly();
+    const difference = today.getTime() - start.getTime();
+    const daysPassed = Math.floor(difference / (1000 * 60 * 60 * 24));
 
-    const start =
-        getPlanStartDate();
+    let day = daysPassed + 1;
 
-    const today =
-        getTodayDateOnly();
-
-    const difference =
-        today.getTime() - start.getTime();
-
-    const daysPassed =
-        Math.floor(
-            difference /
-            (1000 * 60 * 60 * 24)
-        );
-
-    let day =
-        daysPassed + 1;
-
-    if (day < 1)
-        day = 1;
-
-    if (day > currentPlan.days.length)
-        day = currentPlan.days.length;
+    if (day < 1) day = 1;
+    if (day > currentPlan.days.length) day = currentPlan.days.length;
 
     return day;
 }
 
 /* =========================================================
-   COMPLETION
+   COMPLETION TRACKING
    ========================================================= */
 
 function getCompletionKey(day) {
-
-    return (
-        "dailyBreadComplete_" +
-        currentPlan.id +
-        "_" +
-        day
-    );
+    return `dailyBreadComplete_${currentPlan.id}_${day}`;
 }
 
 function isDayComplete(day) {
-
-    return (
-        localStorage.getItem(
-            getCompletionKey(day)
-        ) === "true"
-    );
+    return localStorage.getItem(getCompletionKey(day)) === "true";
 }
 
 function getCompletedDays() {
-
-    return currentPlan.days.filter(
-        day => isDayComplete(day.day)
-    );
+    return currentPlan.days.filter(day => isDayComplete(day.day));
 }
 
 /* =========================================================
-   PROGRESS
+   PROGRESS UPDATES
    ========================================================= */
 
 function updatePlanProgress() {
+    const total = currentPlan.days.length;
+    const completed = getCompletedDays().length;
+    const percentage = total === 0 ? 0 : Math.round((completed / total) * 100);
 
-    const total =
-        currentPlan.days.length;
+    document.getElementById("progressText").textContent =
+        `${completed} / ${total} days complete`;
 
-    const completed =
-        getCompletedDays().length;
-
-    const percentage =
-        total === 0
-            ? 0
-            : Math.round(
-                completed / total * 100
-            );
-
-    document.getElementById(
-        "progressText"
-    ).textContent =
-        completed +
-        " / " +
-        total +
-        " days complete";
-
-    document.getElementById(
-        "progressPercent"
-    ).textContent =
-        percentage + "%";
-
-    document.getElementById(
-        "progressBar"
-    ).style.width =
-        percentage + "%";
+    document.getElementById("progressPercent").textContent = `${percentage}%`;
+    document.getElementById("progressBar").style.width = `${percentage}%`;
 
     renderDayProgress();
 }
 
 function renderDayProgress() {
-
-    const container =
-        document.getElementById(
-            "dayProgressList"
-        );
-
+    const container = document.getElementById("dayProgressList");
     container.innerHTML = "";
 
-    const automaticDay =
-        getAutomaticPlanDay();
+    const automaticDay = getAutomaticPlanDay();
 
     currentPlan.days.forEach(day => {
+        const button = document.createElement("button");
+        const complete = isDayComplete(day.day);
 
-        const button =
-            document.createElement("button");
+        button.className = "day-button";
 
-        const complete =
-            isDayComplete(day.day);
+        if (complete) button.classList.add("complete");
+        if (day.day === automaticDay) button.classList.add("today");
 
-        button.className =
-            "day-button";
+        button.textContent = complete ? `✓ Day ${day.day}` : `Day ${day.day}`;
+        button.title = day.ref;
 
-        if (complete)
-            button.classList.add("complete");
-
-        if (day.day === automaticDay)
-            button.classList.add("today");
-
-        button.textContent =
-            complete
-                ? "✓ Day " + day.day
-                : "Day " + day.day;
-
-        button.title =
-            day.ref;
-
-        button.addEventListener(
-            "click",
-            () => {
-
-                planDaySelect.value =
-                    String(day.day);
-
-                loadPlanDay();
-
-            }
-        );
+        button.addEventListener("click", () => {
+            planDaySelect.value = String(day.day);
+            loadPlanDay();
+        });
 
         container.appendChild(button);
     });
@@ -767,842 +758,182 @@ function renderDayProgress() {
    ========================================================= */
 
 function setupPlanSelectors() {
-
     planSelect.innerHTML = "";
 
     plans.forEach(plan => {
-
-        const option =
-            document.createElement("option");
-
+        const option = document.createElement("option");
         option.value = plan.id;
         option.textContent = plan.name;
-
         planSelect.appendChild(option);
     });
 
     populateDaySelector();
 
-    planSelect.addEventListener(
-        "change",
-        () => {
+    planSelect.addEventListener("change", () => {
+        const selected = plans.find(p => p.id === planSelect.value);
+        if (!selected) return;
 
-            const selected =
-                plans.find(
-                    p => p.id === planSelect.value
-                );
+        currentPlan = selected;
+        populateDaySelector();
+        planDaySelect.value = String(getAutomaticPlanDay());
+        loadPlanDay();
+    });
 
-            if (!selected) return;
-
-            currentPlan = selected;
-
-            populateDaySelector();
-
-            planDaySelect.value =
-                String(getAutomaticPlanDay());
-
-            loadPlanDay();
-        }
-    );
-
-    planDaySelect.addEventListener(
-        "change",
-        loadPlanDay
-    );
+    planDaySelect.addEventListener("change", loadPlanDay);
 }
 
 function populateDaySelector() {
-
     planDaySelect.innerHTML = "";
 
     currentPlan.days.forEach(day => {
-
-        const option =
-            document.createElement("option");
-
-        option.value =
-            day.day;
-
-        option.textContent =
-            "Day " +
-            day.day +
-            " — " +
-            day.ref;
-
+        const option = document.createElement("option");
+        option.value = day.day;
+        option.textContent = `Day ${day.day} — ${day.ref}`;
         planDaySelect.appendChild(option);
     });
 }
 
 function getCurrentDay() {
-
-    const number =
-        Number(planDaySelect.value);
-
-    return currentPlan.days.find(
-        day => day.day === number
-    );
+    const number = Number(planDaySelect.value);
+    return currentPlan.days.find(day => day.day === number);
 }
 
 /* =========================================================
-   PLAN DAY
+   PLAN DAY LOADING
    ========================================================= */
 
 async function loadPlanDay() {
-
-    const day =
-        getCurrentDay();
-
+    const day = getCurrentDay();
     if (!day) return;
 
-    currentDay =
-        day.day;
+    currentDay = day.day;
+    currentReference = day.ref;
 
-    currentReference =
-        day.ref;
+    document.getElementById("planTitle").textContent =
+        `${currentPlan.name} • Started ${currentPlan.startDate}`;
 
-    document.getElementById(
-        "planTitle"
-    ).textContent =
-        currentPlan.name +
-        " • Started " +
-        currentPlan.startDate;
+    const automaticDay = getAutomaticPlanDay();
+    const isToday = day.day === automaticDay;
 
-    const automaticDay =
-        getAutomaticPlanDay();
+    todayLabel.textContent = isToday
+        ? `Today — Day ${day.day} — ${day.ref}`
+        : `Day ${day.day} — ${day.ref}`;
 
-    const isToday =
-        day.day === automaticDay;
+    currRef.textContent = day.ref;
 
-    todayLabel.textContent =
-        isToday
-            ? "Today — Day " + day.day + " — " + day.ref
-            : "Day " + day.day + " — " + day.ref;
-
-    currRef.textContent =
-        day.ref;
-
-    markCompleteBtn.textContent =
-        isDayComplete(day.day)
-            ? "✓ Completed"
-            : "Mark Complete";
+    markCompleteBtn.textContent = isDayComplete(day.day)
+        ? "✓ Completed"
+        : "Mark Complete";
 
     await loadPassage(day.ref);
-
     updatePlanProgress();
-
-    loadGroupNotes(day.ref);
+    await loadGroupNotes(day.ref);
 }
 
 /* =========================================================
    BIBLE READER
    Uses bible-api.com with World English Bible (WEB)
-   so no additional Bible API key is required.
+   No additional Bible API key required.
    ========================================================= */
 
 async function loadPassage(reference) {
-
-    reader.innerHTML =
-        "Loading passage...";
+    reader.innerHTML = "Loading passage...";
 
     try {
+        const url = `https://bible-api.com/${encodeURIComponent(reference)}?translation=web`;
+        const response = await fetch(url);
 
-        const url =
-            "https://bible-api.com/" +
-            encodeURIComponent(reference) +
-            "?translation=web";
-
-        const response =
-            await fetch(url);
-
-        if (!response.ok)
+        if (!response.ok) {
             throw new Error("Bible API request failed.");
+        }
 
-        const data =
-            await response.json();
+        const data = await response.json();
 
-        if (!data.verses || !data.verses.length)
+        if (!data.verses || !data.verses.length) {
             throw new Error("No verses returned.");
+        }
 
         reader.innerHTML = "";
 
         data.verses.forEach(verse => {
+            const div = document.createElement("div");
+            div.className = "verse";
 
-            const div =
-                document.createElement("div");
+            const number = document.createElement("div");
+            number.className = "verse-number";
+            number.textContent = verse.verse;
 
-            div.className =
-                "verse";
-
-            const number =
-                document.createElement("div");
-
-            number.className =
-                "verse-number";
-
-            number.textContent =
-                verse.verse;
-
-            const text =
-                document.createElement("div");
-
-            text.className =
-                "verse-text";
-
-            text.textContent =
-                verse.text.trim();
+            const text = document.createElement("div");
+            text.className = "verse-text";
+            text.textContent = verse.text.trim();
 
             div.appendChild(number);
             div.appendChild(text);
 
-            div.addEventListener(
-                "click",
-                () => {
+            div.addEventListener("click", () => {
+                selectedVerse = {
+                    reference: `${verse.book_name} ${verse.chapter}:${verse.verse}`,
+                    text: verse.text.trim()
+                };
 
-                    selectedVerse = {
-                        reference:
-                            verse.book_name +
-                            " " +
-                            verse.chapter +
-                            ":" +
-                            verse.verse,
-
-                        text:
-                            verse.text.trim()
-                    };
-
-                    selectedRef.value =
-                        selectedVerse.reference;
-
-                    document
-                        .getElementById("noteBody")
-                        .focus();
-
-                }
-            );
+                selectedRef.value = selectedVerse.reference;
+                document.getElementById("noteBody").focus();
+            });
 
             reader.appendChild(div);
         });
 
     } catch (error) {
-
         console.error(error);
-
         reader.innerHTML = `
             <div class="complete-message">
                 <strong>Unable to load the passage.</strong>
-                <p>
-                    Check your internet connection and try again.
-                </p>
-                <p class="small">
-                    ${escapeHtml(error.message)}
-                </p>
+                <p>Check your internet connection and try again.</p>
+                <p class="small">${escapeHtml(error.message)}</p>
             </div>
         `;
     }
 }
 
 /* =========================================================
-   BOOK / CHAPTER NAVIGATION
+   UTILITY FUNCTIONS
    ========================================================= */
 
-const books = [
-    ["Matthew",28],["Mark",16],["Luke",24],["John",21],
-    ["Acts",28],["Romans",16],["1 Corinthians",16],
-    ["2 Corinthians",13],["Galatians",6],["Ephesians",6],
-    ["Philippians",4],["Colossians",4],["1 Thessalonians",5],
-    ["2 Thessalonians",3],["1 Timothy",6],["2 Timothy",4],
-    ["Titus",3],["Philemon",1],["Hebrews",13],["James",5],
-    ["1 Peter",5],["2 Peter",3],["1 John",5],
-    ["2 John",1],["3 John",1],["Jude",1],["Revelation",22]
-];
-
-const bookSelect =
-    document.getElementById("bookSelect");
-
-const chapterSelect =
-    document.getElementById("chapterSelect");
-
-function setupBookSelector() {
-
-    books.forEach(book => {
-
-        const option =
-            document.createElement("option");
-
-        option.value = book[0];
-        option.textContent = book[0];
-
-        bookSelect.appendChild(option);
-    });
-
-    bookSelect.addEventListener(
-        "change",
-        populateChapterSelector
-    );
-
-    chapterSelect.addEventListener(
-        "change",
-        loadSelectedChapter
-    );
-
-    populateChapterSelector();
+function escapeHtml(text) {
+    const div = document.createElement("div");
+    div.textContent = text;
+    return div.innerHTML;
 }
 
-function populateChapterSelector() {
+function showStatus(message, type = "success") {
+    const statusEl = document.getElementById("status");
+    statusEl.textContent = message;
+    statusEl.className = `status show ${type}`;
 
-    const selected =
-        books.find(
-            book => book[0] === bookSelect.value
-        );
-
-    if (!selected) return;
-
-    chapterSelect.innerHTML = "";
-
-    for (
-        let i = 1;
-        i <= selected[1];
-        i++
-    ) {
-
-        const option =
-            document.createElement("option");
-
-        option.value = i;
-        option.textContent = i;
-
-        chapterSelect.appendChild(option);
-    }
+    setTimeout(() => {
+        statusEl.classList.remove("show");
+    }, 3000);
 }
-
-function loadSelectedChapter() {
-
-    const reference =
-        bookSelect.value +
-        " " +
-        chapterSelect.value;
-
-    currentReference =
-        reference;
-
-    currRef.textContent =
-        reference;
-
-    loadPassage(reference);
-}
-
-document
-    .getElementById("prevChap")
-    .addEventListener(
-        "click",
-        () => {
-
-            let chapter =
-                Number(chapterSelect.value);
-
-            if (chapter > 1) {
-
-                chapter--;
-
-                chapterSelect.value =
-                    chapter;
-
-                loadSelectedChapter();
-            }
-        }
-    );
-
-document
-    .getElementById("nextChap")
-    .addEventListener(
-        "click",
-        () => {
-
-            const selected =
-                books.find(
-                    b => b[0] === bookSelect.value
-                );
-
-            let chapter =
-                Number(chapterSelect.value);
-
-            if (
-                selected &&
-                chapter < selected[1]
-            ) {
-
-                chapter++;
-
-                chapterSelect.value =
-                    chapter;
-
-                loadSelectedChapter();
-            }
-        }
-    );
 
 /* =========================================================
-   MARK COMPLETE
+   GROUP NOTES (Placeholder)
    ========================================================= */
-
-markCompleteBtn.addEventListener(
-    "click",
-    () => {
-
-        const key =
-            getCompletionKey(currentDay);
-
-        if (isDayComplete(currentDay)) {
-
-            localStorage.removeItem(key);
-
-            showStatus(
-                "Day " +
-                currentDay +
-                " marked incomplete."
-            );
-
-        } else {
-
-            localStorage.setItem(
-                key,
-                "true"
-            );
-
-            showStatus(
-                "Day " +
-                currentDay +
-                " completed!",
-                true
-            );
-        }
-
-        updatePlanProgress();
-
-        loadPlanDay();
-    }
-);
-
-/* =========================================================
-   NAME
-   ========================================================= */
-
-function getUserName() {
-
-    return (
-        localStorage.getItem(
-            "dailyBreadDisplayName"
-        ) || ""
-    );
-}
-
-function ensureName() {
-
-    if (!getUserName()) {
-
-        document
-            .getElementById("nameModal")
-            .classList.add("show");
-    }
-}
-
-document
-    .getElementById("saveName")
-    .addEventListener(
-        "click",
-        () => {
-
-            const input =
-                document.getElementById(
-                    "userNameInput"
-                );
-
-            const name =
-                input.value.trim();
-
-            if (!name) {
-
-                showStatus(
-                    "Please enter your name."
-                );
-
-                return;
-            }
-
-            localStorage.setItem(
-                "dailyBreadDisplayName",
-                name
-            );
-
-            document
-                .getElementById("nameModal")
-                .classList.remove("show");
-
-            showStatus(
-                "Welcome, " + name + "!",
-                true
-            );
-        }
-    );
-
-/* =========================================================
-   NOTES
-   ========================================================= */
-
-document
-    .getElementById("saveNote")
-    .addEventListener(
-        "click",
-        saveNote
-    );
-
-async function saveNote() {
-
-    const body =
-        document.getElementById(
-            "noteBody"
-        ).value.trim();
-
-    if (!body) {
-
-        showStatus(
-            "Write a note before saving."
-        );
-
-        return;
-    }
-
-    if (!selectedVerse) {
-
-        showStatus(
-            "Select a verse first."
-        );
-
-        return;
-    }
-
-    const name =
-        getUserName() || "Anonymous";
-
-    try {
-
-        await addDoc(
-            collection(db, "studyNotes"),
-            {
-                author: name,
-                reference:
-                    selectedVerse.reference,
-                verseText:
-                    selectedVerse.text,
-                body: body,
-                type:
-                    document.getElementById(
-                        "noteType"
-                    ).value,
-                visibility:
-                    document.getElementById(
-                        "visibility"
-                    ).value,
-                planId:
-                    currentPlan.id,
-                planDay:
-                    currentDay,
-                createdAt:
-                    new Date().toISOString()
-            }
-        );
-
-        document.getElementById(
-            "noteBody"
-        ).value = "";
-
-        showStatus(
-            "Note saved.",
-            true
-        );
-
-        loadGroupNotes(currentReference);
-
-    } catch (error) {
-
-        console.error(error);
-
-        /*
-           If Firestore rules are not yet configured,
-           keep the user's note locally rather than losing it.
-        */
-
-        const localNotes =
-            JSON.parse(
-                localStorage.getItem(
-                    "dailyBreadLocalNotes"
-                ) || "[]"
-            );
-
-        localNotes.push({
-            author:name,
-            reference:selectedVerse.reference,
-            body:body,
-            type:document.getElementById("noteType").value,
-            visibility:document.getElementById("visibility").value,
-            createdAt:new Date().toISOString()
-        });
-
-        localStorage.setItem(
-            "dailyBreadLocalNotes",
-            JSON.stringify(localNotes)
-        );
-
-        showStatus(
-            "Firebase could not save the note, so it was saved on this device instead."
-        );
-
-        renderLocalNotes();
-    }
-}
 
 async function loadGroupNotes(reference) {
-
-    const container =
-        document.getElementById(
-            "groupNotes"
-        );
-
-    container.innerHTML =
-        "Loading notes...";
-
-    let notes = [];
-
-    try {
-
-        const q =
-            query(
-                collection(db, "studyNotes"),
-                where(
-                    "reference",
-                    "==",
-                    reference
-                )
-            );
-
-        const snap =
-            await getDocs(q);
-
-        snap.forEach(doc => {
-
-            const data =
-                doc.data();
-
-            if (
-                data.visibility === "GROUP" ||
-                data.visibility === "PUBLIC"
-            ) {
-
-                notes.push(data);
-            }
-        });
-
-    } catch (error) {
-
-        console.warn(
-            "Could not load Firestore notes.",
-            error
-        );
-    }
-
-    const localNotes =
-        JSON.parse(
-            localStorage.getItem(
-                "dailyBreadLocalNotes"
-            ) || "[]"
-        );
-
-    localNotes.forEach(note => {
-
-        if (
-            note.reference === reference &&
-            (
-                note.visibility === "GROUP" ||
-                note.visibility === "PUBLIC"
-            )
-        ) {
-
-            notes.push(note);
-        }
-    });
-
-    renderNotes(notes);
-}
-
-function renderLocalNotes() {
-
-    loadGroupNotes(currentReference);
-}
-
-function renderNotes(notes) {
-
-    const container =
-        document.getElementById(
-            "groupNotes"
-        );
-
-    container.innerHTML = "";
-
-    if (!notes.length) {
-
-        container.innerHTML =
-            `<div class="small">
-                No group notes for this passage yet.
-            </div>`;
-
-        return;
-    }
-
-    notes.sort(
-        (a,b) =>
-            new Date(b.createdAt || 0) -
-            new Date(a.createdAt || 0)
-    );
-
-    notes.forEach(note => {
-
-        const div =
-            document.createElement("div");
-
-        div.className =
-            "note-card";
-
-        div.innerHTML = `
-            <strong>${escapeHtml(note.author || "Anonymous")}</strong>
-            <div class="small">
-                ${escapeHtml(note.type || "Note")}
-                •
-                ${escapeHtml(note.reference || "")}
-            </div>
-            <p>${escapeHtml(note.body || "")}</p>
-        `;
-
-        container.appendChild(div);
-    });
+    // TODO: Implement group notes loading
+    const groupNotesContainer = document.getElementById("groupNotes");
+    groupNotesContainer.innerHTML = "";
+    console.log("Loading group notes for:", reference);
 }
 
 /* =========================================================
-   GROUP SUMMARY
+   INITIALIZATION
    ========================================================= */
 
-document
-    .getElementById("regenerateSummary")
-    .addEventListener(
-        "click",
-        async () => {
-
-            const notes =
-                document.querySelectorAll(
-                    "#groupNotes .note-card"
-                );
-
-            if (!notes.length) {
-
-                document.getElementById(
-                    "aiSummary"
-                ).textContent =
-                    "There are no group notes to summarize yet.";
-
-                return;
-            }
-
-            /*
-               This is intentionally a simple local summary.
-               It does not pretend that the browser is calling
-               an AI service without an API connection.
-            */
-
-            const noteCount =
-                notes.length;
-
-            document.getElementById(
-                "aiSummary"
-            ).textContent =
-                "The group has " +
-                noteCount +
-                " note" +
-                (noteCount === 1 ? "" : "s") +
-                " on this passage. Review the notes above to identify repeated observations, questions, applications, and prayer points.";
-
-        }
-    );
-
-/* =========================================================
-   STATUS
-   ========================================================= */
-
-let statusTimer;
-
-function showStatus(message, success=false) {
-
-    const status =
-        document.getElementById("status");
-
-    status.textContent =
-        message;
-
-    status.className =
-        "status show" +
-        (success ? " success" : "");
-
-    clearTimeout(statusTimer);
-
-    statusTimer =
-        setTimeout(
-            () => {
-                status.className =
-                    "status";
-            },
-            3500
-        );
-}
-
-/* =========================================================
-   SECURITY / HTML ESCAPE
-   ========================================================= */
-
-function escapeHtml(value) {
-
-    return String(value)
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
-}
-
-/* =========================================================
-   INIT
-   ========================================================= */
-
-setupPlanSelectors();
-
-setupBookSelector();
-
-/*
-   THE IMPORTANT PART:
-   The plan automatically opens to the correct calendar day.
-*/
-
-const automaticDay =
-    getAutomaticPlanDay();
-
-currentDay =
-    automaticDay;
-
-planDaySelect.value =
-    String(automaticDay);
-
-loadPlanDay();
-
-updatePlanProgress();
-
-ensureName();
+document.addEventListener("DOMContentLoaded", () => {
+    setupPlanSelectors();
+    loadPlanDay();
+});
 
 </script>
 
