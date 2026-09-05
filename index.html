@@ -1,308 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Our Daily Bread Ministries</title>
-
-<style>
-body { font-family: Georgia; background:#d2b48c; margin:0; }
-
-header {
-    background:black;
-    color:#f5e6cc;
-    text-align:center;
-    padding:25px;
-}
-
-.logo {
-    width:180px;
-    height:auto;
-    margin-bottom:10px;
-}
-
-.section {
-    max-width:900px;
-    margin:auto;
-    padding:20px;
-}
-
-.nav-buttons {
-    display:flex;
-    justify-content:center;
-    gap:10px;
-    margin-bottom:20px;
-    flex-wrap:wrap;
-}
-
-.nav-buttons button {
-    background:black;
-    color:#f5e6cc;
-    padding:10px 20px;
-    border:none;
-    cursor:pointer;
-    border-radius:4px;
-}
-
-.nav-buttons button:hover {
-    background:#333;
-}
-
-.verse-of-day {
-    background:linear-gradient(135deg,#8b4513,#a0522d);
-    color:#f5e6cc;
-    padding:30px;
-    border-radius:8px;
-    margin-bottom:30px;
-    text-align:center;
-}
-
-.verse-text {
-    font-size:1.3em;
-    font-style:italic;
-    margin-bottom:10px;
-}
-
-.verse-reference {
-    font-size:1.1em;
-    opacity:0.9;
-}
-
-.card {
-    background:#f5e6cc;
-    padding:20px;
-    margin-bottom:20px;
-    border-radius:8px;
-}
-
-.card img {
-    width:60%;
-    display:block;
-    margin:0 auto 10px;
-}
-
-button {
-    background:black;
-    color:#f5e6cc;
-    padding:8px;
-    border:none;
-    cursor:pointer;
-}
-
-/* ===================== RESPONSIVE / MOBILE STYLES ===================== */
-
-@media (max-width:768px) {
-    header { padding:18px 15px; }
-    .logo { width:130px; }
-    header h1 { font-size:1.5em; margin:8px 0; }
-    header p { font-size:0.9em; margin:0; }
-
-    .section { padding:15px; }
-
-    .nav-buttons { flex-direction:column; align-items:stretch; }
-    .nav-buttons button { width:100%; }
-
-    .verse-of-day { padding:20px; }
-    .verse-text { font-size:1.1em; }
-    .verse-reference { font-size:1em; }
-
-    .card { padding:15px; }
-    .card img { width:85%; }
-}
-
-@media (max-width:480px) {
-    header h1 { font-size:1.25em; }
-    .logo { width:100px; }
-    .section { padding:10px; }
-    .card img { width:100%; }
-    .verse-text { font-size:1em; }
-}
-
-/* Set by JS once a touch/mobile device is detected. Catches cases a
-   width-only media query misses, e.g. a tablet held in landscape. */
-body.is-mobile button {
-    min-height:44px;
-    font-size:1em;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Bread - Daily Devotions</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
+    <nav class="navbar">
+        <div class="container">
+            <h1 class="logo">Daily Bread</h1>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="admin.html" class="admin-link">Admin</a></li>
+            </ul>
+        </div>
+    </nav>
 
-<header>
-<img src="DailyBreadLogo.png" class="logo">
-<h1>Our Daily Bread Ministries</h1>
-<p>Feeding on the Word daily</p>
-</header>
+    <main class="container">
+        <section class="devotions-grid" id="devotionsGrid">
+            <!-- Devotions will be loaded here -->
+        </section>
+    </main>
 
-<div class="section">
+    <footer>
+        <p>&copy; 2026 Daily Bread. All rights reserved.</p>
+    </footer>
 
-<div class="nav-buttons">
-    <button onclick="window.location.href='calendar.html'">See all devotionals</button>
-    <button onclick="window.location.href='about.html'">About</button>
-</div>
-
-<!-- VERSE OF THE DAY -->
-<div class="verse-of-day">
-    <h2>Verse of the Day</h2>
-    <div class="verse-text" id="verseText">Loading...</div>
-    <div class="verse-reference" id="verseReference"></div>
-</div>
-
-<h2>Latest Devotionals</h2>
-<div id="posts"></div>
-
-</div>
-
-<script type="module">
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import {
-    getFirestore,
-    collection,
-    getDocs,
-    query,
-    where
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-/* ===================== MOBILE UI DETECTION ===================== */
-/* Feature-detection, not user-agent sniffing: a device is treated as
-   "mobile" if the viewport is narrow OR the primary input is a
-   touch-style pointer with no hover support (phones/tablets). Using
-   matchMedia's own change events means this updates live on resize,
-   rotation, or even plugging in a mouse -- no resize polling needed. */
-function applyMobileClass(mobile) {
-    document.body.classList.toggle("is-mobile", mobile);
-    document.body.classList.toggle("is-desktop", !mobile);
-    window.isMobileDevice = mobile;
-}
-
-function detectMobileUI() {
-    const narrowQuery = window.matchMedia("(max-width:768px)");
-    const touchPrimaryQuery = window.matchMedia("(pointer:coarse) and (hover:none)");
-
-    const evaluate = () =>
-        applyMobileClass(narrowQuery.matches || touchPrimaryQuery.matches);
-
-    evaluate();
-    narrowQuery.addEventListener("change", evaluate);
-    touchPrimaryQuery.addEventListener("change", evaluate);
-}
-
-detectMobileUI();
-
-/* ===================== FIREBASE ===================== */
-const firebaseConfig = {
-  apiKey: "AIzaSyA3g--TT89iLyEQ5lvwI7mBcIygrls7iCQ",
-  authDomain: "daily-bread-973e9.firebaseapp.com",
-  projectId: "daily-bread-973e9"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-/* ===================== VERSE OF THE DAY (FIXED) ===================== */
-async function loadVerseOfDay() {
-
-    try {
-        const snap = await getDocs(collection(db, "dailyVerses"));
-
-        const today = new Date().toISOString().split("T")[0];
-
-        let verseToday = null;
-
-        snap.forEach(doc => {
-            const v = doc.data();
-
-            if (v.date === today) {
-                verseToday = v;
-            }
-        });
-
-        if (!verseToday) {
-            document.getElementById("verseText").textContent =
-                "No verse scheduled for today.";
-            document.getElementById("verseReference").textContent = "";
-            return;
-        }
-
-        document.getElementById("verseText").textContent =
-            `"${verseToday.verse}"`;
-
-        document.getElementById("verseReference").textContent =
-            verseToday.reference;
-
-    } catch (err) {
-        console.error(err);
-        document.getElementById("verseText").textContent =
-            "Error loading verse.";
-    }
-}
-
-/* ===================== DEVOTIONALS ===================== */
-async function loadPosts() {
-
-    const container = document.getElementById("posts");
-    container.innerHTML = "";
-
-    const snap = await getDocs(collection(db, "posts"));
-    const now = new Date();
-
-    let posts = [];
-
-    snap.forEach(doc => {
-        const p = doc.data();
-        if (!p.publishDate || new Date(p.publishDate) <= now) {
-            posts.push({ ...p, id: doc.id });
-        }
-    });
-
-    posts.sort((a,b)=>
-        new Date(b.publishDate || 0) - new Date(a.publishDate || 0)
-    );
-
-    const recent = posts.slice(0,3);
-
-    recent.forEach(post => {
-
-        container.innerHTML += `
-        <div class="card">
-            ${post.image ? `<img src="${post.image}" loading="lazy">` : ""}
-            <h3>${post.day} – ${post.title}</h3>
-            <p><strong>${post.scripture}</strong></p>
-            <p>${post.preview}</p>
-            <button onclick="showFull('${post.id}')">Read Full</button>
-        </div>`;
-    });
-}
-
-/* ===================== FULL VIEW ===================== */
-window.showFull = async function(id) {
-
-    const snap = await getDocs(collection(db, "posts"));
-
-    let post = null;
-
-    snap.forEach(doc => {
-        if (doc.id === id) post = doc.data();
-    });
-
-    if (!post) return;
-
-    document.getElementById("posts").innerHTML = `
-    <div class="card">
-        <h2>${post.day} – ${post.title}</h2>
-        <p><strong>${post.scripture}</strong></p>
-        <p>${post.content}</p>
-        <button onclick="location.reload()">← Back</button>
-    </div>`;
-};
-
-/* ===================== INIT ===================== */
-loadVerseOfDay();
-loadPosts();
-
-</script>
-
+    <script src="devotions-data.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
