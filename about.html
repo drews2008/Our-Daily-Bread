@@ -143,7 +143,7 @@ h2 {
 /* Social Links Styling */
 .social-section {
     background: #f5e6cc;
-    padding: 30px;
+    padding: 30px 20px;
     border-radius: 8px;
     text-align: center;
     margin-top: 40px;
@@ -160,12 +160,14 @@ h2 {
 .social-links {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 15px;
     flex-wrap: wrap;
 }
 
 .social-link {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     padding: 12px 24px;
     background: #8b4513;
     color: #f5e6cc;
@@ -173,6 +175,8 @@ h2 {
     border-radius: 4px;
     font-weight: bold;
     transition: background 0.3s ease;
+    white-space: nowrap;
+    min-height: 44px;
 }
 
 .social-link:hover {
@@ -185,6 +189,13 @@ h2 {
 
 .social-link.instagram:hover {
     opacity: 0.9;
+}
+
+.social-section p {
+    color: #666;
+    margin-top: 15px;
+    font-size: 0.9em;
+    line-height: 1.5;
 }
 
 /* ===================== RESPONSIVE / MOBILE STYLES ===================== */
@@ -218,8 +229,32 @@ h2 {
         height:150px;
     }
 
-    .social-links { flex-direction: column; }
-    .social-link { width: 100%; }
+    .social-section {
+        padding: 20px 15px;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .social-section h3 {
+        font-size: 1.1em;
+        margin-bottom: 15px;
+    }
+
+    .social-links {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .social-link {
+        width: 100%;
+        padding: 14px 20px;
+    }
+
+    .social-section p {
+        font-size: 0.85em;
+        margin-left: 0;
+        margin-right: 0;
+    }
 }
 
 @media (max-width: 480px) {
@@ -228,8 +263,27 @@ h2 {
     .section { padding:10px; }
     .about-intro h1 { font-size:1.3em; }
     .team-member img { width:120px; height:120px; }
-    .social-section { padding: 20px; }
-    .social-section h3 { font-size: 1.1em; }
+    
+    .social-section {
+        padding: 15px 10px;
+        border-radius: 4px;
+    }
+
+    .social-section h3 {
+        font-size: 1em;
+        margin: 0 0 12px 0;
+    }
+
+    .social-link {
+        padding: 12px 16px;
+        font-size: 0.95em;
+    }
+
+    .social-section p {
+        font-size: 0.8em;
+        margin: 12px 0 0 0;
+        padding: 0;
+    }
 }
 
 /* Mobile UI detection */
@@ -312,7 +366,7 @@ body.is-mobile button {
     <div class="social-links">
         <a href="https://www.instagram.com/ourdaily_breadministries?stkn=a2RoaW9pbjZla2Fn" target="_blank" class="social-link instagram">Follow on Instagram</a>
     </div>
-    <p style="color: #666; margin-top: 15px; font-size: 0.9em;">Stay connected with daily devotions and spiritual encouragement on our Instagram community.</p>
+    <p>Stay connected with daily devotions and spiritual encouragement on our Instagram community.</p>
 </div>
 
 </div>
