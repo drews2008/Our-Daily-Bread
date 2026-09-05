@@ -3,418 +3,1533 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Devotional Archive - Our Daily Bread</title>
 
 <style>
-* { box-sizing: border-box; }
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
 
 body {
     font-family: Georgia, serif;
-    background: linear-gradient(180deg, #d2b48c, #c9a77d);
+    background: linear-gradient(180deg, #d2b48c 0%, #c9a77d 100%);
     margin: 0;
     padding: 0;
     color: #222;
 }
 
-/* HEADER */
+/* =========================
+   HEADER
+========================= */
+
 header {
     background: #000;
     color: #f5e6cc;
     text-align: center;
-    padding: 30px 20px;
+    padding: 34px 20px 30px;
     border-bottom: 4px solid #8b5e3c;
+}
+
+.logo {
+    width: 110px;
+    height: auto;
+    margin-bottom: 10px;
 }
 
 header h1 {
     margin: 0;
     font-size: 2.4em;
+    letter-spacing: 0.5px;
 }
 
 header p {
-    margin: 6px 0 0;
+    margin: 8px 0 0;
     opacity: 0.9;
+    font-size: 1.05em;
 }
 
-/* CONTAINER */
+/* =========================
+   MAIN CONTAINER
+========================= */
+
 .container {
     max-width: 1200px;
-    margin: 25px auto;
-    padding: 0 20px;
+    margin: 0 auto;
+    padding: 30px 20px 60px;
 }
 
-/* STATS */
+/* =========================
+   TOP INTRO
+========================= */
+
+.archive-intro {
+    background: #f5e6cc;
+    border-radius: 14px;
+    padding: 28px;
+    margin-bottom: 25px;
+    text-align: center;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.10);
+    border-top: 5px solid #8b4513;
+}
+
+.archive-intro h2 {
+    margin: 0 0 8px;
+    font-size: 1.9em;
+    color: #000;
+}
+
+.archive-intro p {
+    margin: 0 auto;
+    max-width: 700px;
+    line-height: 1.6;
+    color: #4a3a2a;
+}
+
+/* =========================
+   STATS
+========================= */
+
 .stats {
-    display: flex;
-    gap: 15px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(180px, 240px));
     justify-content: center;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
+    gap: 15px;
+    margin-bottom: 25px;
 }
 
 .stat-box {
     background: #f5e6cc;
-    padding: 15px 20px;
-    border-radius: 10px;
-    min-width: 140px;
+    padding: 18px 20px;
+    border-radius: 12px;
     text-align: center;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.10);
+    border: 1px solid rgba(139,69,19,0.15);
 }
 
 .stat-number {
-    font-size: 1.8em;
+    font-size: 2em;
     font-weight: bold;
     color: #8b4513;
+    line-height: 1;
+    margin-bottom: 7px;
 }
 
-/* TOOLBAR */
+.stat-label {
+    font-size: 0.9em;
+    color: #555;
+}
+
+/* =========================
+   TOOLBAR
+========================= */
+
 .toolbar {
     background: #f5e6cc;
-    padding: 15px;
-    border-radius: 10px;
+    padding: 18px;
+    border-radius: 12px;
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
     align-items: center;
-    margin-bottom: 20px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    margin-bottom: 30px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
 }
 
-input, select {
-    padding: 10px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
+.search-wrapper {
+    flex: 1 1 300px;
+    position: relative;
+}
+
+.search-wrapper input {
+    width: 100%;
+}
+
+input,
+select {
+    padding: 12px 13px;
+    border-radius: 7px;
+    border: 1px solid #c9b89f;
+    background: #fffaf0;
+    color: #222;
     font-family: inherit;
-    min-width: 180px;
+    font-size: 1em;
+    min-height: 44px;
 }
 
-/* BUTTONS */
+input:focus,
+select:focus {
+    outline: 2px solid #8b4513;
+    outline-offset: 1px;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
 button {
     background: #000;
     color: #f5e6cc;
-    padding: 10px 14px;
+    padding: 11px 16px;
+    min-height: 44px;
     border: none;
-    border-radius: 6px;
+    border-radius: 7px;
     cursor: pointer;
+    font-family: inherit;
+    font-size: 0.95em;
+    transition: 0.2s ease;
 }
 
 button:hover {
     background: #333;
+    transform: translateY(-1px);
 }
 
-/* ARCHIVE HEADER */
+button.secondary {
+    background: #8b4513;
+}
+
+button.secondary:hover {
+    background: #6f350e;
+}
+
+/* =========================
+   SECTION TITLE
+========================= */
+
+.archive-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.archive-title h2 {
+    margin: 0;
+    color: #000;
+    font-size: 1.6em;
+}
+
+.archive-title span {
+    color: #5b4632;
+    font-size: 0.9em;
+}
+
+/* =========================
+   ARCHIVE
+========================= */
+
 .month-header {
     grid-column: 1 / -1;
-    margin-top: 25px;
-    font-size: 1.3em;
+    margin-top: 28px;
+    margin-bottom: 0;
+    font-size: 1.35em;
     font-weight: bold;
     color: #3a2a1a;
     border-bottom: 2px solid #8b5e3c;
-    padding-bottom: 5px;
+    padding-bottom: 7px;
 }
 
-/* GRID */
+/* =========================
+   GRID
+========================= */
+
 .calendar-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 18px;
 }
 
-/* CARD */
+/* =========================
+   DEVOTIONAL CARD
+========================= */
+
 .day-card {
     background: #f5e6cc;
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 4px 14px rgba(0,0,0,0.12);
-    transition: 0.2s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
     display: flex;
     flex-direction: column;
+    border: 1px solid rgba(139,69,19,0.12);
 }
 
 .day-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.16);
 }
 
 .day-header {
     background: #000;
     color: #f5e6cc;
-    padding: 10px;
+    padding: 11px 12px;
     text-align: center;
     font-weight: bold;
+    letter-spacing: 0.5px;
 }
 
 .day-content {
-    padding: 15px;
+    padding: 18px;
     display: flex;
     flex-direction: column;
     flex: 1;
 }
 
-.scripture {
-    font-style: italic;
-    color: #7a4a1f;
+.day-content h3 {
+    margin: 0 0 10px;
+    font-size: 1.3em;
+    color: #000;
+    line-height: 1.3;
+}
+
+.publish-date {
+    font-size: 0.82em;
+    color: #777;
     margin-bottom: 10px;
 }
 
+.scripture {
+    font-style: italic;
+    color: #7a4a1f;
+    margin-bottom: 12px;
+    line-height: 1.5;
+    font-weight: 500;
+}
+
 .preview-text {
-    font-size: 0.9em;
+    font-size: 0.94em;
     color: #555;
+    line-height: 1.55;
     flex-grow: 1;
+    margin-bottom: 18px;
 }
 
-/* EMPTY */
+.read-button {
+    width: 100%;
+}
+
+/* =========================
+   EMPTY STATE
+========================= */
+
 .empty {
+    grid-column: 1 / -1;
     text-align: center;
-    padding: 50px;
+    padding: 55px 25px;
     background: #f5e6cc;
-    border-radius: 10px;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
 }
 
-/* MODAL */
-.modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.6);
+.empty h3 {
+    margin-top: 0;
+    color: #000;
 }
 
-.modal-content {
-    background: #f5e6cc;
-    margin: 5% auto;
-    padding: 25px;
-    max-width: 650px;
-    border-radius: 10px;
-    max-height: 80vh;
-    overflow-y: auto;
-}
-
-.close {
-    float: right;
-    font-size: 28px;
-    cursor: pointer;
-}
-
-/* MOBILE */
-@media (max-width: 768px) {
-    .toolbar {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    input, select, button {
-        width: 100%;
-    }
-}
-</style>
-</head>
-
-<body>
-
-<header>
-    <h1>Our Daily Bread Archive</h1>
-    <p>Search & Study Past Devotionals</p>
-</header>
-
-<div class="container">
-
-    <!-- STATS -->
-    <div class="stats">
-        <div class="stat-box">
-            <div class="stat-number" id="totalCount">0</div>
-            <div>Total</div>
-        </div>
-
-    <!-- TOOLBAR -->
-    <div class="toolbar">
-        <input type="text" id="searchInput" placeholder="Search title, scripture, or content...">
-        
-        <select id="dayFilter">
-            <option value="">All Days</option>
-            <option>Sunday</option><option>Monday</option>
-            <option>Tuesday</option><option>Wednesday</option>
-            <option>Thursday</option><option>Friday</option>
-            <option>Saturday</option>
-        </select>
-
-        <button onclick="resetView()">Reset</button>
-        <button onclick="toggleArchive()">Toggle View</button>
-        <button onclick="goHome()">Home</button>
-    </div>
-
-    <!-- ARCHIVE -->
-    <div id="calendarContainer" class="calendar-grid"></div>
-
-</div>
-
-<!-- MODAL -->
-<div id="devotionalModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <div id="devotionalContent"></div>
-    </div>
-</div>
-
-<script type="module">
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyA3g--TT89iLyEQ5lvwI7mBcIygrls7iCQ",
-  authDomain: "daily-bread-973e9.firebaseapp.com",
-  projectId: "daily-bread-973e9",
-  storageBucket: "daily-bread-973e9.firebasestorage.app",
-  messagingSenderId: "277061281496",
-  appId: "1:277061281496:web:1a72a48469e863e5dcd9ad"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-let allPosts = [];
-let archiveMode = true;
-
-// True only when a post HAS a publishDate and that date is still ahead of now.
-// Posts with no publishDate at all (drafts) are untouched, so they keep
-// showing under "Unpublished" like before.
-function isFutureScheduled(post) {
-    return !!post.publishDate && new Date(post.publishDate) > new Date();
-}
-
-async function loadPosts() {
-    const snap = await getDocs(collection(db, "posts"));
-    allPosts = [];
-
-    snap.forEach(doc => {
-        allPosts.push({ ...doc.data(), id: doc.id });
-    });
-
-    allPosts.sort((a,b) => new Date(b.publishDate||0) - new Date(a.publishDate||0));
-
-    updateStats();
-    render(getFiltered());
-}
-
-/* =========================
-   SEARCH + FILTER
-========================= */
-function getFiltered() {
-    const search = document.getElementById("searchInput").value.toLowerCase();
-    const day = document.getElementById("dayFilter").value;
-
-    return allPosts.filter(p => {
-
-        if (isFutureScheduled(p)) return false;
-
-        const textMatch =
-            (p.title || "").toLowerCase().includes(search) ||
-            (p.scripture || "").toLowerCase().includes(search) ||
-            (p.content || "").toLowerCase().includes(search);
-
-        const dayMatch = !day || p.day === day;
-
-        return textMatch && dayMatch;
-    });
-}
-
-/* =========================
-   ARCHIVE RENDER
-========================= */
-function render(posts) {
-    const container = document.getElementById("calendarContainer");
-
-    if (!posts.length) {
-        container.innerHTML = `<div class="empty">No devotionals found.</div>`;
-        return;
-    }
-
-    const grouped = {};
-
-    posts.forEach(p => {
-        const d = p.publishDate ? new Date(p.publishDate) : null;
-        const key = d ? d.toLocaleString('default', { month:'long', year:'numeric' }) : "Unpublished";
-
-        if (!grouped[key]) grouped[key] = [];
-        grouped[key].push(p);
-    });
-
-    container.innerHTML = Object.keys(grouped).map(month => {
-
-        return `
-            <div class="month-header">${month}</div>
-            ${grouped[month].map(post => `
-                <div class="day-card">
-                    <div class="day-header">${post.day}</div>
-                    <div class="day-content">
-                        <h3>${post.title}</h3>
-                        <div class="scripture">${post.scripture}</div>
-                        <div class="preview-text">${post.preview || ""}</div>
-                        <button onclick="openPost('${post.id}')">Read</button>
-                    </div>
-                </div>
-            `).join("")}
-        `;
-    }).join("");
+.empty p {
+    color: #666;
 }
 
 /* =========================
    MODAL
 ========================= */
-window.openPost = function(id) {
-    const post = allPosts.find(p => p.id === id);
-    if (!post) return;
 
-    document.getElementById("devotionalContent").innerHTML = `
-        <h2>${post.title}</h2>
-        <p><strong>${post.scripture}</strong></p>
-        <hr>
-        <div>${post.content}</div>
-    `;
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.72);
+    z-index: 1000;
+    padding: 20px;
+    overflow-y: auto;
+}
 
-    document.getElementById("devotionalModal").style.display = "block";
-};
+.modal-content {
+    background: #f5e6cc;
+    margin: 4% auto;
+    padding: 32px;
+    max-width: 720px;
+    border-radius: 14px;
+    max-height: 88vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+    position: relative;
+}
 
-window.closeModal = () => {
-    document.getElementById("devotionalModal").style.display = "none";
-};
+.modal-content h2 {
+    margin-top: 0;
+    color: #000;
+    font-size: 1.8em;
+    padding-right: 30px;
+}
+
+.modal-scripture {
+    color: #7a4a1f;
+    font-style: italic;
+    font-weight: bold;
+    line-height: 1.6;
+}
+
+.modal-body {
+    line-height: 1.75;
+    color: #333;
+}
+
+.close {
+    position: absolute;
+    right: 18px;
+    top: 12px;
+    font-size: 32px;
+    cursor: pointer;
+    color: #333;
+    line-height: 1;
+}
+
+.close:hover {
+    color: #000;
+}
 
 /* =========================
-   CONTROLS
+   MOBILE
 ========================= */
-document.getElementById("searchInput").addEventListener("input", () => {
-    render(getFiltered());
-});
 
-document.getElementById("dayFilter").addEventListener("change", () => {
-    render(getFiltered());
-});
+@media (max-width: 768px) {
+
+    header {
+        padding: 25px 15px;
+    }
+
+    header h1 {
+        font-size: 1.8em;
+    }
+
+    header p {
+        font-size: 0.95em;
+    }
+
+    .container {
+        padding: 20px 12px 40px;
+    }
+
+    .archive-intro {
+        padding: 22px 18px;
+    }
+
+    .archive-intro h2 {
+        font-size: 1.55em;
+    }
+
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .toolbar {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 15px;
+    }
+
+    .search-wrapper {
+        width: 100%;
+    }
+
+    input,
+    select,
+    .toolbar button {
+        width: 100%;
+    }
+
+    .archive-title {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .calendar-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .modal {
+        padding: 10px;
+    }
+
+    .modal-content {
+        margin: 5% auto;
+        padding: 24px 18px;
+        max-height: 92vh;
+    }
+}
+
+@media (max-width: 480px) {
+
+    header h1 {
+        font-size: 1.45em;
+    }
+
+    .logo {
+        width: 90px;
+    }
+
+    .stats {
+        gap: 10px;
+    }
+
+    .stat-box {
+        padding: 15px 10px;
+        min-width: 0;
+    }
+
+    .stat-number {
+        font-size: 1.6em;
+    }
+
+    .stat-label {
+        font-size: 0.8em;
+    }
+
+    .day-content {
+        padding: 16px;
+    }
+}
+</style>
+</head>
+
+
+<body>
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header>
+
+    <img
+        src="DailyBreadLogo.png"
+        class="logo"
+        alt="Our Daily Bread Ministries"
+    >
+
+    <h1>Our Daily Bread Archive</h1>
+
+    <p>Feeding on the Word daily</p>
+
+</header>
+
+
+<div class="container">
+
+    <!-- =========================
+         INTRO
+    ========================== -->
+
+    <div class="archive-intro">
+
+        <h2>Devotional Archive</h2>
+
+        <p>
+            Search and study devotionals from Our Daily Bread Ministries.
+            Grow in your understanding of God's Word and learn to live
+            His truth each day.
+        </p>
+
+    </div>
+
+
+    <!-- =========================
+         STATS
+    ========================== -->
+
+    <div class="stats">
+
+        <div class="stat-box">
+
+            <div
+                class="stat-number"
+                id="totalCount"
+            >
+                0
+            </div>
+
+            <div class="stat-label">
+                Published Devotionals
+            </div>
+
+        </div>
+
+
+        <div class="stat-box">
+
+            <div
+                class="stat-number"
+                id="publishedCount"
+            >
+                0
+            </div>
+
+            <div class="stat-label">
+                Available to Read
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         TOOLBAR
+    ========================== -->
+
+    <div class="toolbar">
+
+        <div class="search-wrapper">
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search title, Scripture, or content..."
+                autocomplete="off"
+            >
+
+        </div>
+
+
+        <select id="dayFilter">
+
+            <option value="">
+                All Days
+            </option>
+
+            <option value="Sunday">
+                Sunday
+            </option>
+
+            <option value="Monday">
+                Monday
+            </option>
+
+            <option value="Tuesday">
+                Tuesday
+            </option>
+
+            <option value="Wednesday">
+                Wednesday
+            </option>
+
+            <option value="Thursday">
+                Thursday
+            </option>
+
+            <option value="Friday">
+                Friday
+            </option>
+
+            <option value="Saturday">
+                Saturday
+            </option>
+
+        </select>
+
+
+        <button
+            onclick="resetView()"
+        >
+            Reset
+        </button>
+
+
+        <button
+            class="secondary"
+            onclick="toggleArchive()"
+            id="toggleButton"
+        >
+            Show Latest 10
+        </button>
+
+
+        <button
+            onclick="goHome()"
+        >
+            Home
+        </button>
+
+    </div>
+
+
+    <!-- =========================
+         ARCHIVE TITLE
+    ========================== -->
+
+    <div class="archive-title">
+
+        <h2>
+            Published Devotionals
+        </h2>
+
+        <span id="resultCount">
+            Loading...
+        </span>
+
+    </div>
+
+
+    <!-- =========================
+         ARCHIVE
+    ========================== -->
+
+    <div
+        id="calendarContainer"
+        class="calendar-grid"
+    >
+    </div>
+
+</div>
+
+
+<!-- =========================
+     MODAL
+========================= -->
+
+<div
+    id="devotionalModal"
+    class="modal"
+>
+
+    <div class="modal-content">
+
+        <span
+            class="close"
+            onclick="closeModal()"
+            aria-label="Close"
+        >
+            &times;
+        </span>
+
+
+        <div id="devotionalContent">
+        </div>
+
+    </div>
+
+</div>
+
+
+<script type="module">
+
+/* =========================
+   FIREBASE
+========================= */
+
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+
+import {
+    getFirestore,
+    collection,
+    getDocs
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyA3g--TT89iLyEQ5lvwI7mBcIygrls7iCQ",
+
+    authDomain:
+        "daily-bread-973e9.firebaseapp.com",
+
+    projectId:
+        "daily-bread-973e9",
+
+    storageBucket:
+        "daily-bread-973e9.firebasestorage.app",
+
+    messagingSenderId:
+        "277061281496",
+
+    appId:
+        "1:277061281496:web:1a72a48469e863e5dcd9ad"
+
+};
+
+
+const app =
+    initializeApp(firebaseConfig);
+
+const db =
+    getFirestore(app);
+
+
+/* =========================
+   DATA
+========================= */
+
+let allPosts = [];
+
+let archiveMode = true;
+
+
+/* =========================
+   PUBLISHED CHECK
+========================= */
+
+/*
+    IMPORTANT:
+
+    A post is PUBLIC only when:
+
+    1. It has a publishDate
+    2. The publishDate has arrived
+
+    Therefore:
+
+    No publishDate = HIDDEN
+    Future publishDate = HIDDEN
+    Past/current publishDate = PUBLIC
+*/
+
+function isPublished(post) {
+
+    if (!post.publishDate) {
+        return false;
+    }
+
+    const publishDate =
+        new Date(post.publishDate);
+
+    if (isNaN(publishDate.getTime())) {
+        return false;
+    }
+
+    return publishDate <= new Date();
+}
+
+
+/* =========================
+   LOAD POSTS
+========================= */
+
+async function loadPosts() {
+
+    const container =
+        document.getElementById(
+            "calendarContainer"
+        );
+
+    try {
+
+        container.innerHTML = `
+            <div class="empty">
+                <h3>Loading devotionals...</h3>
+                <p>Please wait while the archive loads.</p>
+            </div>
+        `;
+
+
+        const snap =
+            await getDocs(
+                collection(db, "posts")
+            );
+
+
+        allPosts = [];
+
+
+        snap.forEach(doc => {
+
+            allPosts.push({
+
+                ...doc.data(),
+
+                id: doc.id
+
+            });
+
+        });
+
+
+        /*
+            Sort newest first.
+        */
+
+        allPosts.sort(
+            (a, b) =>
+                new Date(
+                    b.publishDate || 0
+                ) -
+                new Date(
+                    a.publishDate || 0
+                )
+        );
+
+
+        updateStats();
+
+        render(
+            getFiltered()
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Error loading devotionals:",
+            error
+        );
+
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                <h3>
+                    Unable to load devotionals
+                </h3>
+
+                <p>
+                    Please try refreshing the page.
+                </p>
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =========================
+   GET FILTERED POSTS
+========================= */
+
+function getFiltered() {
+
+    const search =
+        document
+            .getElementById(
+                "searchInput"
+            )
+            .value
+            .trim()
+            .toLowerCase();
+
+
+    const day =
+        document
+            .getElementById(
+                "dayFilter"
+            )
+            .value;
+
+
+    /*
+        START WITH ONLY PUBLISHED POSTS.
+
+        This is the important security/display
+        logic for the public archive.
+    */
+
+    return allPosts.filter(post => {
+
+        if (!isPublished(post)) {
+            return false;
+        }
+
+
+        const textMatch =
+
+            (post.title || "")
+                .toLowerCase()
+                .includes(search)
+
+            ||
+
+            (post.scripture || "")
+                .toLowerCase()
+                .includes(search)
+
+            ||
+
+            (post.content || "")
+                .toLowerCase()
+                .includes(search);
+
+
+        const dayMatch =
+            !day ||
+            post.day === day;
+
+
+        return (
+            textMatch &&
+            dayMatch
+        );
+
+    });
+
+}
+
+
+/* =========================
+   RENDER
+========================= */
+
+function render(posts) {
+
+    const container =
+        document.getElementById(
+            "calendarContainer"
+        );
+
+
+    const resultCount =
+        document.getElementById(
+            "resultCount"
+        );
+
+
+    /*
+        If Toggle View is set to latest 10,
+        limit the displayed results.
+    */
+
+    let visiblePosts =
+        archiveMode
+            ? posts
+            : posts.slice(0, 10);
+
+
+    resultCount.textContent =
+        `${visiblePosts.length} ${
+            visiblePosts.length === 1
+                ? "devotional"
+                : "devotionals"
+        }`;
+
+
+    if (!visiblePosts.length) {
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                <h3>
+                    No devotionals found
+                </h3>
+
+                <p>
+                    Try changing your search or
+                    day filter.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    const grouped = {};
+
+
+    visiblePosts.forEach(post => {
+
+        const date =
+            new Date(
+                post.publishDate
+            );
+
+
+        const key =
+            date.toLocaleString(
+                "default",
+                {
+                    month: "long",
+                    year: "numeric"
+                }
+            );
+
+
+        if (!grouped[key]) {
+            grouped[key] = [];
+        }
+
+
+        grouped[key].push(post);
+
+    });
+
+
+    container.innerHTML =
+        Object.keys(grouped)
+            .map(month => {
+
+                return `
+
+                    <div class="month-header">
+                        ${month}
+                    </div>
+
+                    ${grouped[month]
+                        .map(post => {
+
+                            const date =
+                                new Date(
+                                    post.publishDate
+                                );
+
+
+                            const formattedDate =
+                                date.toLocaleDateString(
+                                    "en-US",
+                                    {
+                                        month: "short",
+                                        day: "numeric",
+                                        year: "numeric"
+                                    }
+                                );
+
+
+                            return `
+
+                                <div class="day-card">
+
+                                    <div class="day-header">
+                                        ${
+                                            post.day ||
+                                            "Devotional"
+                                        }
+                                    </div>
+
+
+                                    <div class="day-content">
+
+                                        <h3>
+                                            ${
+                                                post.title ||
+                                                "Untitled Devotional"
+                                            }
+                                        </h3>
+
+
+                                        <div class="publish-date">
+                                            Published
+                                            ${formattedDate}
+                                        </div>
+
+
+                                        <div class="scripture">
+                                            ${
+                                                post.scripture ||
+                                                ""
+                                            }
+                                        </div>
+
+
+                                        <div class="preview-text">
+                                            ${
+                                                post.preview ||
+                                                createPreview(
+                                                    post.content
+                                                )
+                                            }
+                                        </div>
+
+
+                                        <button
+                                            class="read-button"
+                                            onclick="openPost('${post.id}')"
+                                        >
+                                            Read Devotional
+                                        </button>
+
+                                    </div>
+
+                                </div>
+
+                            `;
+
+                        })
+                        .join("")}
+
+                `;
+
+            })
+            .join("");
+
+}
+
+
+/* =========================
+   CREATE PREVIEW
+========================= */
+
+function createPreview(content) {
+
+    if (!content) {
+        return "";
+    }
+
+
+    const plainText =
+        content
+            .replace(
+                /<[^>]*>/g,
+                " "
+            )
+            .replace(
+                /\s+/g,
+                " "
+            )
+            .trim();
+
+
+    if (plainText.length <= 150) {
+        return plainText;
+    }
+
+
+    return (
+        plainText.substring(0, 150) +
+        "..."
+    );
+
+}
+
+
+/* =========================
+   OPEN POST
+========================= */
+
+window.openPost = function(id) {
+
+    const post =
+        allPosts.find(
+            post =>
+                post.id === id
+        );
+
+
+    /*
+        Extra protection:
+
+        Even if someone somehow gets the ID
+        of a future post, don't display it.
+    */
+
+    if (
+        !post ||
+        !isPublished(post)
+    ) {
+        return;
+    }
+
+
+    const date =
+        new Date(
+            post.publishDate
+        );
+
+
+    const formattedDate =
+        date.toLocaleDateString(
+            "en-US",
+            {
+                month: "long",
+                day: "numeric",
+                year: "numeric"
+            }
+        );
+
+
+    document
+        .getElementById(
+            "devotionalContent"
+        )
+        .innerHTML = `
+
+            <h2>
+                ${
+                    post.title ||
+                    "Untitled Devotional"
+                }
+            </h2>
+
+            <div class="publish-date">
+                Published ${formattedDate}
+            </div>
+
+            <p class="modal-scripture">
+                ${
+                    post.scripture ||
+                    ""
+                }
+            </p>
+
+            <hr>
+
+            <div class="modal-body">
+                ${
+                    post.content ||
+                    "No content available."
+                }
+            </div>
+
+        `;
+
+
+    document
+        .getElementById(
+            "devotionalModal"
+        )
+        .style.display =
+            "block";
+
+
+    document.body.style.overflow =
+        "hidden";
+
+};
+
+
+/* =========================
+   CLOSE MODAL
+========================= */
+
+window.closeModal = function() {
+
+    document
+        .getElementById(
+            "devotionalModal"
+        )
+        .style.display =
+            "none";
+
+
+    document.body.style.overflow =
+        "";
+
+};
+
+
+/* =========================
+   CLICK OUTSIDE MODAL
+========================= */
+
+document
+    .getElementById(
+        "devotionalModal"
+    )
+    .addEventListener(
+        "click",
+        function(event) {
+
+            if (
+                event.target === this
+            ) {
+
+                window.closeModal();
+
+            }
+
+        }
+    );
+
+
+/* =========================
+   ESCAPE KEY
+========================= */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Escape"
+        ) {
+
+            window.closeModal();
+
+        }
+
+    }
+);
+
+
+/* =========================
+   SEARCH
+========================= */
+
+document
+    .getElementById(
+        "searchInput"
+    )
+    .addEventListener(
+        "input",
+        function() {
+
+            render(
+                getFiltered()
+            );
+
+        }
+    );
+
+
+/* =========================
+   DAY FILTER
+========================= */
+
+document
+    .getElementById(
+        "dayFilter"
+    )
+    .addEventListener(
+        "change",
+        function() {
+
+            render(
+                getFiltered()
+            );
+
+        }
+    );
+
+
+/* =========================
+   RESET
+========================= */
 
 window.resetView = function() {
-    document.getElementById("searchInput").value = "";
-    document.getElementById("dayFilter").value = "";
-    render(getFiltered());
+
+    document
+        .getElementById(
+            "searchInput"
+        )
+        .value = "";
+
+
+    document
+        .getElementById(
+            "dayFilter"
+        )
+        .value = "";
+
+
+    archiveMode = true;
+
+
+    document
+        .getElementById(
+            "toggleButton"
+        )
+        .textContent =
+            "Show Latest 10";
+
+
+    render(
+        getFiltered()
+    );
+
 };
+
+
+/* =========================
+   TOGGLE VIEW
+========================= */
 
 window.toggleArchive = function() {
-    archiveMode = !archiveMode;
-    const visible = allPosts.filter(p => !isFutureScheduled(p));
-    render(archiveMode ? visible : visible.slice(0,10));
+
+    archiveMode =
+        !archiveMode;
+
+
+    const button =
+        document.getElementById(
+            "toggleButton"
+        );
+
+
+    if (archiveMode) {
+
+        button.textContent =
+            "Show Latest 10";
+
+    } else {
+
+        button.textContent =
+            "Show Full Archive";
+
+    }
+
+
+    render(
+        getFiltered()
+    );
+
 };
 
+
+/* =========================
+   HOME
+========================= */
+
 window.goHome = function() {
-    window.location.href = "index.html";
+
+    window.location.href =
+        "index.html";
+
 };
+
 
 /* =========================
    STATS
 ========================= */
-function updateStats() {
-    const published = allPosts.filter(p => p.publishDate && !isFutureScheduled(p)).length;
 
-    document.getElementById("totalCount").textContent = allPosts.length;
-    document.getElementById("publishedCount").textContent = published;
+function updateStats() {
+
+    /*
+        ONLY count posts whose
+        publication date has arrived.
+    */
+
+    const published =
+        allPosts.filter(
+            post =>
+                isPublished(post)
+        );
+
+
+    document
+        .getElementById(
+            "totalCount"
+        )
+        .textContent =
+            published.length;
+
+
+    document
+        .getElementById(
+            "publishedCount"
+        )
+        .textContent =
+            published.length;
+
 }
 
-/* INIT */
+
+/* =========================
+   INITIALIZE
+========================= */
+
 loadPosts();
 
 </script>
