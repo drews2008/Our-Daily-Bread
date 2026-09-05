@@ -6,7 +6,7 @@
 <title>About Us - Our Daily Bread Ministries</title>
 
 <style>
-body { font-family: Georgia; background:#d2b48c; margin:0; }
+body { font-family: Georgia; background:#d2b48c; margin:0; padding: 0; }
 
 header {
     background:black;
@@ -21,7 +21,13 @@ header {
     margin-bottom:10px;
 }
 
-.section { max-width:900px; margin:auto; padding:20px; }
+.section { 
+    max-width:900px; 
+    margin:0 auto; 
+    padding:20px;
+    box-sizing: border-box;
+    width: 100%;
+}
 
 .nav-buttons {
     display: flex;
@@ -60,6 +66,7 @@ header {
     text-align: center;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     border-top: 5px solid #8b4513;
+    box-sizing: border-box;
 }
 
 .statement-card h3 {
@@ -91,6 +98,7 @@ header {
     border-radius:8px;
     text-align: center;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-sizing: border-box;
 }
 
 .team-member img {
@@ -127,6 +135,7 @@ h2 {
     border-radius: 8px;
     margin-bottom: 40px;
     text-align: center;
+    box-sizing: border-box;
 }
 
 .about-intro h1 {
@@ -148,6 +157,8 @@ h2 {
     text-align: center;
     margin-top: 40px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-sizing: border-box;
+    width: 100%;
 }
 
 .social-section h3 {
@@ -162,6 +173,8 @@ h2 {
     justify-content: center;
     gap: 15px;
     flex-wrap: wrap;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .social-link {
@@ -177,6 +190,7 @@ h2 {
     transition: background 0.3s ease;
     white-space: nowrap;
     min-height: 44px;
+    box-sizing: border-box;
 }
 
 .social-link:hover {
@@ -194,19 +208,22 @@ h2 {
 .social-section p {
     color: #666;
     margin-top: 15px;
+    margin-bottom: 0;
     font-size: 0.9em;
     line-height: 1.5;
+    box-sizing: border-box;
 }
 
 /* ===================== RESPONSIVE / MOBILE STYLES ===================== */
 
 @media (max-width: 768px) {
+    body { padding: 0; }
+    .section { padding: 15px; }
+    
     header { padding:18px 15px; }
     .logo { width:130px; }
     header h1 { font-size:1.5em; margin:8px 0; }
     header p { font-size:0.9em; margin:0; }
-
-    .section { padding:15px; }
 
     .nav-buttons { flex-direction:column; align-items:stretch; }
     .nav-buttons button { width:100%; }
@@ -231,8 +248,7 @@ h2 {
 
     .social-section {
         padding: 20px 15px;
-        margin-left: 0;
-        margin-right: 0;
+        margin: 40px 0 0 0;
     }
 
     .social-section h3 {
@@ -243,30 +259,35 @@ h2 {
     .social-links {
         flex-direction: column;
         gap: 10px;
+        margin: 0;
+        padding: 0;
     }
 
     .social-link {
         width: 100%;
         padding: 14px 20px;
+        margin: 0;
     }
 
     .social-section p {
         font-size: 0.85em;
-        margin-left: 0;
-        margin-right: 0;
+        margin: 15px 0 0 0;
     }
 }
 
 @media (max-width: 480px) {
+    body { padding: 0; margin: 0; }
+    .section { padding: 10px; }
+    
     header h1 { font-size:1.25em; }
     .logo { width:100px; }
-    .section { padding:10px; }
     .about-intro h1 { font-size:1.3em; }
     .team-member img { width:120px; height:120px; }
     
     .social-section {
         padding: 15px 10px;
         border-radius: 4px;
+        margin: 30px 0 0 0;
     }
 
     .social-section h3 {
@@ -274,9 +295,14 @@ h2 {
         margin: 0 0 12px 0;
     }
 
+    .social-links {
+        gap: 8px;
+    }
+
     .social-link {
         padding: 12px 16px;
         font-size: 0.95em;
+        margin: 0;
     }
 
     .social-section p {
