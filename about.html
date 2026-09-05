@@ -140,6 +140,53 @@ h2 {
     line-height: 1.6;
 }
 
+/* Social Links Styling */
+.social-section {
+    background: #f5e6cc;
+    padding: 30px;
+    border-radius: 8px;
+    text-align: center;
+    margin-top: 40px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.social-section h3 {
+    color: #000;
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.3em;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.social-link {
+    display: inline-block;
+    padding: 12px 24px;
+    background: #8b4513;
+    color: #f5e6cc;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+.social-link:hover {
+    background: #6f350e;
+}
+
+.social-link.instagram {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+}
+
+.social-link.instagram:hover {
+    opacity: 0.9;
+}
+
 /* ===================== RESPONSIVE / MOBILE STYLES ===================== */
 
 @media (max-width: 768px) {
@@ -170,6 +217,9 @@ h2 {
         width:150px;
         height:150px;
     }
+
+    .social-links { flex-direction: column; }
+    .social-link { width: 100%; }
 }
 
 @media (max-width: 480px) {
@@ -178,6 +228,8 @@ h2 {
     .section { padding:10px; }
     .about-intro h1 { font-size:1.3em; }
     .team-member img { width:120px; height:120px; }
+    .social-section { padding: 20px; }
+    .social-section h3 { font-size: 1.1em; }
 }
 
 /* Mobile UI detection */
@@ -252,6 +304,15 @@ body.is-mobile button {
 <h2>Meet Our Team</h2>
 
 <div class="team-container" id="teamContainer">
+</div>
+
+<!-- SOCIAL LINKS -->
+<div class="social-section">
+    <h3>Connect With Us</h3>
+    <div class="social-links">
+        <a href="https://www.instagram.com/ourdaily_breadministries?stkn=a2RoaW9pbjZla2Fn" target="_blank" class="social-link instagram">Follow on Instagram</a>
+    </div>
+    <p style="color: #666; margin-top: 15px; font-size: 0.9em;">Stay connected with daily devotions and spiritual encouragement on our Instagram community.</p>
 </div>
 
 </div>
