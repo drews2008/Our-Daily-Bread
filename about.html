@@ -180,8 +180,7 @@ h2 {
     .team-member img { width:120px; height:120px; }
 }
 
-/* Set by JS once a touch/mobile device is detected. Catches cases a
-   width-only media query misses, e.g. a tablet held in landscape. */
+/* Mobile UI detection */
 body.is-mobile button {
     min-height:44px;
     font-size:1em;
@@ -198,6 +197,7 @@ body.is-mobile button {
 </header>
 
 <div class="section">
+
 <div class="nav-buttons">
     <button onclick="window.location.href='index.html'">Home</button>
     <button onclick="window.location.href='calendar.html'">See all devotionals</button>
@@ -207,22 +207,50 @@ body.is-mobile button {
     <h1>About Us</h1>
 </div>
 
+<!-- PURPOSE, MISSION & VISION -->
+
 <div class="statements-container">
+
     <div class="statement-card">
         <h3>Our Purpose</h3>
-        <p>To glorify God by making His truth accessible and practical for everyday living, ensuring every believer has the spiritual nourishment they need.</p>
+        <p>
+            To glorify God by making His Word and truth understandable,
+            accessible, and practical for everyday life. We exist to help
+            believers not only know what the Bible says, but understand its
+            truth and faithfully live according to it, allowing God's Word
+            to become the foundation for how they think, live, and walk
+            with Christ.
+        </p>
     </div>
+
     <div class="statement-card">
         <h3>Our Mission</h3>
-        <p>Our Daily Bread exists to strengthen believers to live in daily dependence on God through Jesus Christ—the true Bread of Life. We equip Christians with God’s Word so they are not spiritually starved, but built up in truth, grounded in faith, and ready for every battle of life. Our aim is simple and urgent: to feed God’s people with what endures, so they walk in obedience, courage, and steady trust—one day at a time.</p>
+        <p>
+            Our Daily Bread exists to strengthen believers through the Word
+            of God, helping them live in daily dependence on Him through
+            Jesus Christ—the true Bread of Life. We equip Christians with
+            Scripture so they are not spiritually starved, but built up in
+            truth, grounded in faith, and prepared for every battle and
+            every day of life.
+        </p>
     </div>
+
     <div class="statement-card">
         <h3>Our Vision</h3>
-        <p>To see Christians strengthened daily by God’s Word, walking in steady faith, spiritual maturity, and bold obedience—living as people sustained not by this world, but by Christ alone.</p>
+        <p>
+            To see Christians strengthened daily by God's Word, walking in
+            steady faith, growing in spiritual maturity, and living in bold
+            obedience. We desire to see believers sustained not by the
+            temporary things of this world, but by Christ alone—knowing His
+            Word, trusting His truth, and faithfully living it out in every
+            area of life.
+        </p>
     </div>
+
 </div>
 
 <h2>Meet Our Team</h2>
+
 <div class="team-container" id="teamContainer">
 </div>
 
@@ -234,11 +262,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/fireba
 import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 /* ===================== MOBILE UI DETECTION ===================== */
-/* Feature-detection, not user-agent sniffing: a device is treated as
-   "mobile" if the viewport is narrow OR the primary input is a
-   touch-style pointer with no hover support (phones/tablets). Using
-   matchMedia's own change events means this updates live on resize,
-   rotation, or even plugging in a mouse -- no resize polling needed. */
+
 function applyMobileClass(mobile) {
     document.body.classList.toggle("is-mobile", mobile);
     document.body.classList.toggle("is-desktop", !mobile);
@@ -247,12 +271,16 @@ function applyMobileClass(mobile) {
 
 function detectMobileUI() {
     const narrowQuery = window.matchMedia("(max-width:768px)");
-    const touchPrimaryQuery = window.matchMedia("(pointer:coarse) and (hover:none)");
+    const touchPrimaryQuery =
+        window.matchMedia("(pointer:coarse) and (hover:none)");
 
     const evaluate = () =>
-        applyMobileClass(narrowQuery.matches || touchPrimaryQuery.matches);
+        applyMobileClass(
+            narrowQuery.matches || touchPrimaryQuery.matches
+        );
 
     evaluate();
+
     narrowQuery.addEventListener("change", evaluate);
     touchPrimaryQuery.addEventListener("change", evaluate);
 }
@@ -260,6 +288,7 @@ function detectMobileUI() {
 detectMobileUI();
 
 /* ===================== FIREBASE ===================== */
+
 const firebaseConfig = {
   apiKey: "AIzaSyA3g--TT89iLyEQ5lvwI7mBcIygrls7iCQ",
   authDomain: "daily-bread-973e9.firebaseapp.com",
@@ -272,38 +301,71 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+/* ===================== LOAD TEAM MEMBERS ===================== */
+
 async function loadTeamMembers() {
-try {
-const container = document.getElementById("teamContainer");
-const snapshot = await getDocs(collection(db, "teamMembers"));
 
-let members = [];
+    try {
 
-snapshot.forEach(doc => {
-members.push({ ...doc.data(), id: doc.id });
-});
+        const container =
+            document.getElementById("teamContainer");
 
-if (members.length === 0) {
-container.innerHTML = "<p>No team members found.</p>";
-return;
-}
+        const snapshot =
+            await getDocs(collection(db, "teamMembers"));
 
-members.forEach(member => {
-const profileImage = member.image || "https://via.placeholder.com/200?text=No+Image";
+        let members = [];
 
-container.innerHTML += `
-<div class="team-member">
-    <img src="${profileImage}" alt="${member.name}" loading="lazy">
-    <h3>${member.name}</h3>
-    <p>${member.bio || "No bio available"}</p>
-</div>
-`;
-});
+        snapshot.forEach(doc => {
+            members.push({
+                ...doc.data(),
+                id: doc.id
+            });
+        });
 
-} catch (error) {
-console.error("Error loading team members:", error);
-document.getElementById("teamContainer").innerHTML = "<p>Error loading team members.</p>";
-}
+        if (members.length === 0) {
+            container.innerHTML =
+                "<p>No team members found.</p>";
+            return;
+        }
+
+        members.forEach(member => {
+
+            const profileImage =
+                member.image ||
+                "https://via.placeholder.com/200?text=No+Image";
+
+            container.innerHTML += `
+                <div class="team-member">
+                    <img
+                        src="${profileImage}"
+                        alt="${member.name}"
+                        loading="lazy"
+                    >
+
+                    <h3>${member.name}</h3>
+
+                    <p>
+                        ${member.bio || "No bio available"}
+                    </p>
+                </div>
+            `;
+
+        });
+
+    } catch (error) {
+
+        console.error(
+            "Error loading team members:",
+            error
+        );
+
+        document.getElementById(
+            "teamContainer"
+        ).innerHTML =
+            "<p>Error loading team members.</p>";
+
+    }
+
 }
 
 loadTeamMembers();
