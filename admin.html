@@ -1,32 +1,349 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - Daily Bread</title>
-    <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<title>Admin - Daily Bread</title>
+
+<style>
+body { font-family: Georgia; background:#d2b48c; margin:0; }
+
+header {
+    background:black;
+    color:#f5e6cc;
+    text-align:center;
+    padding:20px;
+}
+
+.container {
+    max-width:900px;
+    margin:auto;
+    padding:20px;
+}
+
+.tabs {
+    display:flex;
+    gap:10px;
+    margin-bottom:20px;
+    flex-wrap:wrap;
+}
+
+.tabs button {
+    background:black;
+    color:#f5e6cc;
+    padding:10px 20px;
+    border:none;
+    cursor:pointer;
+    border-radius:4px;
+}
+
+.tabs button.active {
+    background:#a0522d;
+}
+
+.tab-content { display:none; }
+.tab-content.active { display:block; }
+
+input, textarea, select {
+    width:100%;
+    margin-bottom:10px;
+    padding:8px;
+    box-sizing:border-box;
+}
+
+button {
+    background:black;
+    color:#f5e6cc;
+    padding:10px 20px;
+    border:none;
+    cursor:pointer;
+    margin-right:5px;
+    margin-bottom:10px;
+}
+
+button:hover { background:#333; }
+
+.card {
+    background:#f5e6cc;
+    padding:15px;
+    margin-top:10px;
+    border-radius:4px;
+}
+
+.team-card {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.profile-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #ccc;
+    border: 2px solid #8b4513;
+}
+
+.profile-preview {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: none;
+    margin-bottom: 10px;
+    border: 2px solid black;
+}
+
+hr { margin:20px 0; border:1px solid #8b4513; }
+
+label {
+    display:block;
+    margin-bottom:5px;
+    font-weight:bold;
+}
+
+/* Stats Section Styles */
+.stats-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: #f5e6cc;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    border-left: 4px solid #8b4513;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.stat-card h3 {
+    margin: 0 0 10px;
+    color: #555;
+    font-size: 0.9em;
+    text-transform: uppercase;
+}
+
+.stat-number {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #8b4513;
+    margin: 0;
+}
+
+.stats-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: #f5e6cc;
+}
+
+.stats-table th {
+    background: #000;
+    color: #f5e6cc;
+    padding: 12px;
+    text-align: left;
+    border-bottom: 2px solid #8b4513;
+}
+
+.stats-table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+.stats-table tr:hover {
+    background: #f0dcc8;
+}
+
+.chart-container {
+    background: #f5e6cc;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+    max-height: 300px;
+    overflow-x: auto;
+}
+
+.chart-bar-group {
+    display: flex;
+    align-items: flex-end;
+    gap: 15px;
+    margin-bottom: 20px;
+    min-height: 250px;
+}
+
+.chart-bar-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.chart-bar {
+    width: 40px;
+    background: linear-gradient(to top, #8b4513, #a0522d);
+    border-radius: 4px 4px 0 0;
+    margin-bottom: 8px;
+    transition: opacity 0.2s;
+}
+
+.chart-bar:hover {
+    opacity: 0.7;
+}
+
+.chart-label {
+    font-size: 0.85em;
+    text-align: center;
+    max-width: 50px;
+    word-break: break-word;
+    color: #555;
+}
+
+.chart-value {
+    font-size: 0.9em;
+    font-weight: bold;
+    color: #8b4513;
+    margin-top: 5px;
+}
+
+</style>
 </head>
+
 <body>
-    <nav class="navbar">
-        <div class="container">
-            <h1 class="logo">Daily Bread</h1>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="admin.html" class="admin-link active">Admin</a></li>
-            </ul>
-        </div>
-    </nav>
 
-    <main class="container admin-container">
-        <section class="admin-header">
-            <h2>Admin Dashboard</h2>
-            <div class="admin-controls">
-                <button id="resetStats" class="btn btn-danger">Reset All Statistics</button>
-                <button id="exportStats" class="btn btn-primary">Export Stats</button>
+<header>
+    <h1>Admin Panel</h1>
+</header>
+
+<div class="container">
+
+    <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('devotionals', this)">Devotionals</button>
+        <button class="tab-btn" onclick="switchTab('verses', this)">Verses</button>
+        <button class="tab-btn" onclick="switchTab('team', this)">Team</button>
+        <button class="tab-btn" onclick="switchTab('readingPlans', this)">Reading Plans</button>
+        <button class="tab-btn" onclick="switchTab('stats', this)">Stats</button>
+    </div>
+
+    <div id="devotionals" class="tab-content active">
+        <h2>Devotionals</h2>
+
+        <label>Title</label>
+        <input id="title">
+
+        <label>Day</label>
+        <select id="day">
+            <option>Sunday</option>
+            <option>Monday</option>
+            <option>Tuesday</option>
+            <option>Wednesday</option>
+            <option>Thursday</option>
+            <option>Friday</option>
+            <option>Saturday</option>
+        </select>
+
+        <label>Scripture</label>
+        <input id="scripture">
+        <label>Week Theme</label>
+        <input id="monthTheme" placeholder="October - Spirits">
+
+        <label>Daily theme</label>
+        <input id="dailyTheme" placeholder="Day 2 - You've been challenged">
+        <label>Publish Date</label>
+        <input id="publishDate" type="datetime-local">
+
+        <label>Preview</label>
+        <textarea id="preview"></textarea>
+
+        <label>Content</label>
+        <textarea id="content"></textarea>
+
+        <button onclick="savePost()">Save Devotional</button>
+
+        <hr>
+        <h3>Manage Posts</h3>
+        <div id="posts"></div>
+    </div>
+
+    <div id="verses" class="tab-content">
+        <h2>Verse Scheduler (KJV)</h2>
+
+        <label>Date</label>
+        <input type="date" id="verseDate">
+
+        <label>Reference</label>
+        <input id="verseRef" placeholder="John 3:16">
+
+        <button onclick="fetchVerse()">Fetch KJV Verse</button>
+
+        <label>Verse Text</label>
+        <textarea id="verseText" rows="6"></textarea>
+
+        <button onclick="saveVerse()">Save Verse</button>
+
+        <hr>
+        <h3>Scheduled Verses</h3>
+        <div id="verseList"></div>
+    </div>
+
+    <div id="team" class="tab-content">
+        <h2>Team Members</h2>
+
+        <label>Name</label>
+        <input id="memberName" placeholder="Name">
+        
+        <label>Bio</label>
+        <textarea id="memberBio" placeholder="Bio"></textarea>
+
+        <label>Profile Picture</label>
+        <input type="file" id="memberPhoto" accept="image/*" onchange="previewImage(event)">
+        <img id="photoPreview" class="profile-preview" src="" alt="Preview">
+
+        <button onclick="saveTeamMember()">Save Member</button>
+
+        <hr>
+        <h3>Team List</h3>
+        <div id="teamMembers"></div>
+    </div>
+
+    <div id="readingPlans" class="tab-content">
+        <h2>Reading Plans</h2>
+        <div class="card">
+            <div class="field">
+                <label>Plan ID (no spaces)</label>
+                <input id="planIdField" class="input" placeholder="e.g., gospel-salvation-grace">
             </div>
-        </section>
+            <div class="field">
+                <label>Title</label>
+                <input id="planTitleField" class="input" placeholder="Plan title">
+            </div>
+            <div class="field">
+                <label>Theme</label>
+                <input id="planThemeField" class="input" placeholder="Short theme/description">
+            </div>
+            <div class="field">
+                <label>Days (one per line: day|reading|focus)</label>
+                <textarea id="planDaysField" rows="6" class="input" placeholder="1|Romans 3:9–26|Our Sin — Every person is guilty"></textarea>
+            </div>
+            <div style="display:flex;gap:8px">
+                <button id="saveReadingPlanBtn" class="btn">Save Plan</button>
+                <button id="deleteReadingPlanBtn" class="btn delete">Delete Plan</button>
+                <button id="refreshReadingPlansBtn" class="btn">Refresh Plans</button>
+            </div>
+        </div>
 
-        <section class="stats-summary">
+        <hr>
+        <h3>Existing Reading Plans (Firestore)</h3>
+        <div id="readingPlansList"></div>
+    </div>
+
+    <div id="stats" class="tab-content">
+        <h2>Devotion Statistics</h2>
+        <p>View count statistics for each devotion based on how many times they have been viewed.</p>
+        
+        <div class="stats-summary">
             <div class="stat-card">
                 <h3>Total Views</h3>
                 <p class="stat-number" id="totalViews">0</p>
@@ -39,39 +356,480 @@
                 <h3>Average Views</h3>
                 <p class="stat-number" id="avgViews">0</p>
             </div>
-        </section>
-
-        <section class="stats-table">
-            <h3>Devotion View Statistics</h3>
-            <table id="statsTable">
-                <thead>
-                    <tr>
-                        <th>Devotion Title</th>
-                        <th>Author</th>
-                        <th>Views</th>
-                        <th>Last Viewed</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="statsBody">
-                    <!-- Table rows will be populated here -->
-                </tbody>
-            </table>
-        </section>
-
-        <section class="stats-chart">
-            <h3>Views by Devotion</h3>
-            <div id="chartContainer" class="chart-container">
-                <!-- Chart will be rendered here -->
+        </div>
+        
+        <h3>Devotion View Breakdown</h3>
+        <table class="stats-table">
+            <thead>
+                <tr>
+                    <th>Devotion Title</th>
+                    <th>Views</th>
+                    <th>Last Viewed</th>
+                </tr>
+            </thead>
+            <tbody id="statsTableBody">
+                <tr>
+                    <td colspan="3" style="text-align: center; padding: 20px; color: #999;">Loading statistics...</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <h3>Visual Chart</h3>
+        <div class="chart-container">
+            <div class="chart-bar-group" id="chartContainer">
+                <p style="text-align: center; width: 100%; color: #999;">Generating chart...</p>
             </div>
-        </section>
-    </main>
+        </div>
+        
+        <button onclick="resetAllStats()" style="margin-top: 20px; background: #d32f2f;">Reset All Statistics</button>
+        <button onclick="exportStats()" style="margin-top: 20px; background: #8b4513;">Export Statistics</button>
+    </div>
 
-    <footer>
-        <p>&copy; 2026 Daily Bread. All rights reserved.</p>
-    </footer>
+</div>
 
-    <script src="devotions-data.js"></script>
-    <script src="admin.js"></script>
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import {
+    getFirestore,
+    collection,
+    addDoc,
+    getDocs,
+    deleteDoc,
+    doc,
+    updateDoc,
+    getDoc,
+    setDoc
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyA3g--TT89iLyEQ5lvwI7mBcIygrls7iCQ",
+    authDomain: "daily-bread-973e9.firebaseapp.com",
+    projectId: "daily-bread-973e9"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+let editPostId = null;
+let editTeamId = null;
+let base64ImageString = ""; 
+
+/* ================= IMAGE PREVIEW UTILITY ================= */
+window.previewImage = function(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            base64ImageString = e.target.result;
+            const previewImg = document.getElementById("photoPreview");
+            previewImg.src = base64ImageString;
+            previewImg.style.display = "block";
+        }
+        reader.readAsDataURL(file);
+    }
+};
+
+/* ================= SAFE TAB SWITCH ================= */
+window.switchTab = function(tab, btn) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+
+    const target = document.getElementById(tab);
+    if (target) {
+        target.classList.add('active');
+        if (tab === 'stats') {
+            loadStatistics();
+        }
+    }
+    if (btn) btn.classList.add('active');
+};
+
+/* ================= DEVOTIONALS ================= */
+window.savePost = async function() {
+    const post = {
+    title: document.getElementById("title").value,
+    day: document.getElementById("day").value,
+    monthTheme: document.getElementById("monthTheme").value,
+    dailyTheme: document.getElementById("dailyTheme").value,
+    scripture: document.getElementById("scripture").value,
+    preview: document.getElementById("preview").value,
+    content: document.getElementById("content").value,
+    publishDate: document.getElementById("publishDate").value || ""
+};
+    if (editPostId) {
+        await updateDoc(doc(db, "posts", editPostId), post);
+        editPostId = null;
+    } else {
+        await addDoc(collection(db, "posts"), post);
+    }
+
+    document.getElementById("title").value = "";
+    document.getElementById("day").value = "Sunday";
+    document.getElementById("monthTheme").value = "";
+    document.getElementById("dailyTheme").value = "";
+    document.getElementById("scripture").value = "";
+    document.getElementById("preview").value = "";
+    document.getElementById("content").value = "";
+    document.getElementById("publishDate").value = "";
+
+    loadPosts();
+};
+
+window.editPost = async function(id) {
+    const docRef = doc(db, "posts", id);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+        const p = docSnap.data();
+        document.getElementById("title").value = p.title || "";
+        document.getElementById("day").value = p.day || "Sunday";
+        document.getElementById("scripture").value = p.scripture || "";
+        document.getElementById("monthTheme").value = p.monthTheme || "";
+        document.getElementById("dailyTheme").value = p.dailyTheme || "";
+        document.getElementById("preview").value = p.preview || "";
+        document.getElementById("content").value = p.content || "";
+        document.getElementById("publishDate").value = p.publishDate || "";
+        editPostId = id;
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+};
+
+async function loadPosts() {
+    const snap = await getDocs(collection(db, "posts"));
+    const container = document.getElementById("posts");
+    container.innerHTML = "";
+
+    snap.forEach(d => {
+        const p = d.data();
+        container.innerHTML += `
+        <div class="card">
+            <b>${p.title}</b><br>
+<small><b>${p.monthTheme || ""}</b></small><br>
+<small>${p.dailyTheme || ""}</small><br>
+${p.scripture}<br>
+            <button onclick="editPost('${d.id}')">Edit</button>
+            <button onclick="deletePost('${d.id}')">Delete</button>
+        </div>`;
+    });
+}
+
+window.deletePost = async function(id) {
+    await deleteDoc(doc(db, "posts", id));
+    loadPosts();
+};
+
+/* ================= VERSES (KJV SAFE) ================= */
+window.fetchVerse = async function() {
+    const ref = document.getElementById("verseRef").value;
+    if (!ref) return alert("Enter a reference");
+
+    const res = await fetch("https://bible-api.com/" + encodeURIComponent(ref) + "?translation=kjv");
+    const data = await res.json();
+    document.getElementById("verseText").value = data.text || "Verse not found";
+};
+
+window.saveVerse = async function() {
+    await addDoc(collection(db, "dailyVerses"), {
+        date: document.getElementById("verseDate").value,
+        reference: document.getElementById("verseRef").value,
+        verse: document.getElementById("verseText").value
+    });
+
+    document.getElementById("verseDate").value = "";
+    document.getElementById("verseRef").value = "";
+    document.getElementById("verseText").value = "";
+
+    loadVerses();
+};
+
+async function loadVerses() {
+    const snap = await getDocs(collection(db, "dailyVerses"));
+    const container = document.getElementById("verseList");
+    container.innerHTML = "";
+
+    snap.forEach(d => {
+        const v = d.data();
+        container.innerHTML += `
+        <div class="card">
+            <b>${v.date || ""}</b><br>
+            ${v.reference || ""}<br>
+            <small>${(v.verse || "").slice(0, 120)}...</small><br>
+            <button onclick="deleteVerse('${d.id}')">Delete</button>
+        </div>`;
+    });
+}
+
+window.deleteVerse = async function(id) {
+    await deleteDoc(doc(db, "dailyVerses", id));
+    loadVerses();
+};
+
+/* ================= TEAM ================= */
+window.saveTeamMember = async function() {
+    const memberData = {
+        name: document.getElementById("memberName").value,
+        bio: document.getElementById("memberBio").value,
+        photo: base64ImageString 
+    };
+
+    if (editTeamId) {
+        await updateDoc(doc(db, "teamMembers", editTeamId), memberData);
+        editTeamId = null;
+    } else {
+        await addDoc(collection(db, "teamMembers"), memberData);
+    }
+
+    document.getElementById("memberName").value = "";
+    document.getElementById("memberBio").value = "";
+    document.getElementById("memberPhoto").value = "";
+    document.getElementById("photoPreview").style.display = "none";
+    base64ImageString = ""; 
+
+    loadTeam();
+};
+
+window.editTeamMember = async function(id) {
+    const docRef = doc(db, "teamMembers", id);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+        const t = docSnap.data();
+        document.getElementById("memberName").value = t.name || "";
+        document.getElementById("memberBio").value = t.bio || "";
+        
+        if(t.photo) {
+            base64ImageString = t.photo;
+            const previewImg = document.getElementById("photoPreview");
+            previewImg.src = t.photo;
+            previewImg.style.display = "block";
+        } else {
+            document.getElementById("photoPreview").style.display = "none";
+            base64ImageString = "";
+        }
+        
+        editTeamId = id;
+    }
+};
+
+window.deleteTeamMember = async function(id) {
+    await deleteDoc(doc(db, "teamMembers", id));
+    loadTeam();
+};
+
+async function loadTeam() {
+    const snap = await getDocs(collection(db, "teamMembers"));
+    const container = document.getElementById("teamMembers");
+    container.innerHTML = "";
+
+    snap.forEach(d => {
+        const t = d.data();
+        const imageSrc = t.photo || "https://via.placeholder.com/80"; 
+        
+        container.innerHTML += `
+        <div class="card team-card">
+            <img class="profile-img" src="${imageSrc}" alt="Profile">
+            <div>
+                <b>${t.name || ""}</b><br>
+                <p style="margin:5px 0;">${t.bio || ""}</p>
+                <button onclick="editTeamMember('${d.id}')">Edit</button>
+                <button onclick="deleteTeamMember('${d.id}')">Delete</button>
+            </div>
+        </div>`;
+    });
+}
+
+/* ================= READING PLANS (NEW) ================= */
+async function loadReadingPlans() {
+    try {
+        const snap = await getDocs(collection(db, 'readingPlans'));
+        const plans = [];
+        snap.forEach(d => {
+            const data = d.data();
+            data._id = d.id;
+            plans.push(data);
+        });
+        renderReadingPlans(plans);
+    } catch (e) {
+        console.error('loadReadingPlans error', e);
+        document.getElementById('readingPlansList').innerHTML = '<div class="card">Unable to load plans.</div>';
+    }
+}
+
+function renderReadingPlans(plans) {
+    const container = document.getElementById('readingPlansList');
+    container.innerHTML = '';
+    if (!plans || !plans.length) {
+        container.innerHTML = '<div class="card">No reading plans found.</div>';
+        return;
+    }
+    plans.forEach(p => {
+        const el = document.createElement('div');
+        el.className = 'card';
+        el.style.marginBottom = '8px';
+        el.innerHTML = `<strong>${p.title || p._id}</strong><div class="note">${p.theme || ''}</div><div style="margin-top:8px"><button class="loadPlanBtn" data-id="${p._id}">Load</button> <button class="deletePlanBtn" data-id="${p._id}">Delete</button></div>`;
+        container.appendChild(el);
+    });
+    container.querySelectorAll('.loadPlanBtn').forEach(b => b.addEventListener('click', async (evt) => {
+        const id = b.dataset.id || evt.target.dataset.id;
+        const docRef = doc(db, 'readingPlans', id);
+        const snap = await getDoc(docRef);
+        if (snap.exists()) {
+            const p = snap.data();
+            document.getElementById('planIdField').value = id;
+            document.getElementById('planTitleField').value = p.title || '';
+            document.getElementById('planThemeField').value = p.theme || '';
+            document.getElementById('planDaysField').value = (p.days || []).map(d => `${d.day}|${d.reading}|${d.focus}`).join('\n');
+            switchTab('readingPlans', document.querySelector(".tab-btn[onclick*='readingPlans']"));
+        }
+    }));
+    container.querySelectorAll('.deletePlanBtn').forEach(b => b.addEventListener('click', async (evt) => {
+        const id = b.dataset.id || evt.target.dataset.id;
+        if (!confirm('Delete plan ' + id + '?')) return;
+        try {
+            await deleteDoc(doc(db, 'readingPlans', id));
+            loadReadingPlans();
+        } catch (e) { console.error(e); alert('Delete failed'); }
+    }));
+}
+
+document.getElementById('saveReadingPlanBtn').addEventListener('click', async () => {
+    const id = document.getElementById('planIdField').value.trim();
+    if (!id) return alert('Provide plan id');
+    const title = document.getElementById('planTitleField').value.trim();
+    const theme = document.getElementById('planThemeField').value.trim();
+    const daysText = document.getElementById('planDaysField').value.trim();
+    const days = daysText.split('\n').map(l => { const parts = l.split('|'); return { day: Number(parts[0] || 0), reading: parts[1] || '', focus: parts[2] || '' }; }).filter(d => d.reading);
+    try {
+        await setDoc(doc(db, 'readingPlans', id), { title, theme, days });
+        alert('Saved');
+        loadReadingPlans();
+    } catch (e) { console.error(e); alert('Save failed'); }
+});
+
+document.getElementById('deleteReadingPlanBtn').addEventListener('click', async () => {
+    const id = document.getElementById('planIdField').value.trim();
+    if (!id) return alert('Provide plan id to delete');
+    if (!confirm('Delete plan ' + id + '?')) return;
+    try { await deleteDoc(doc(db, 'readingPlans', id)); alert('Deleted'); loadReadingPlans(); } catch (e) { console.error(e); alert('Delete failed'); }
+});
+
+document.getElementById('refreshReadingPlansBtn').addEventListener('click', () => loadReadingPlans());
+
+/* ================= STATISTICS ================= */
+window.loadStatistics = async function() {
+    const snap = await getDocs(collection(db, "posts"));
+    const stats = {};
+    
+    snap.forEach(doc => {
+        const post = doc.data();
+        stats[doc.id] = {
+            title: post.title || "Untitled",
+            views: post.views || 0,
+            lastViewed: post.lastViewed || null
+        };
+    });
+    
+    renderStatistics(stats);
+};
+
+function renderStatistics(stats) {
+    const statIds = Object.keys(stats);
+    const totalViews = statIds.reduce((sum, id) => sum + stats[id].views, 0);
+    const avgViews = statIds.length > 0 ? Math.round(totalViews / statIds.length) : 0;
+    
+    document.getElementById('totalViews').textContent = totalViews;
+    document.getElementById('totalDevotions').textContent = statIds.length;
+    document.getElementById('avgViews').textContent = avgViews;
+    
+    // Render table
+    const tbody = document.getElementById('statsTableBody');
+    tbody.innerHTML = '';
+    
+    const sortedStats = Object.entries(stats).sort((a, b) => b[1].views - a[1].views);
+    
+    if (sortedStats.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="3" style="text-align: center; padding: 20px; color: #999;">No data yet</td></tr>';
+        return;
+    }
+    
+    sortedStats.forEach(([id, stat]) => {
+        const lastViewed = stat.lastViewed ? new Date(stat.lastViewed).toLocaleDateString() : 'Never';
+        tbody.innerHTML += `
+            <tr>
+                <td>${stat.title}</td>
+                <td>${stat.views}</td>
+                <td>${lastViewed}</td>
+            </tr>
+        `;
+    });
+    
+    // Render chart
+    renderChart(sortedStats);
+}
+
+function renderChart(sortedStats) {
+    const chartContainer = document.getElementById('chartContainer');
+    chartContainer.innerHTML = '';
+    
+    if (sortedStats.length === 0) {
+        chartContainer.innerHTML = '<p style="text-align: center; color: #999; width: 100%;">No data to display</p>';
+        return;
+    }
+    
+    const maxViews = Math.max(...sortedStats.map(s => s[1].views), 1);
+    
+    sortedStats.forEach(([id, stat]) => {
+        const percentage = (stat.views / maxViews) * 100;
+        const barHeight = Math.max(percentage, 10);
+        
+        const barItem = document.createElement('div');
+        barItem.className = 'chart-bar-item';
+        barItem.innerHTML = `
+            <div class="chart-bar" style="height: ${barHeight}px;" title="${stat.title}: ${stat.views} views"></div>
+            <div class="chart-value">${stat.views}</div>
+            <div class="chart-label">${stat.title.substring(0, 20)}</div>
+        `;
+        chartContainer.appendChild(barItem);
+    });
+}
+
+window.resetAllStats = async function() {
+    if (!confirm('Are you sure? This will reset all view statistics.')) return;
+    const snap = await getDocs(collection(db, "posts"));
+    snap.forEach(async (doc) => {
+        await updateDoc(doc.ref, { views: 0, lastViewed: null });
+    });
+    loadStatistics();
+    alert('Statistics reset!');
+};
+
+window.exportStats = async function() {
+    const snap = await getDocs(collection(db, "posts"));
+    const data = [];
+    snap.forEach(doc => {
+        const post = doc.data();
+        data.push({
+            title: post.title,
+            views: post.views || 0,
+            lastViewed: post.lastViewed || 'Never'
+        });
+    });
+    
+    const csv = 'Title,Views,Last Viewed\n' + data.map(d => `"${d.title}",${d.views},${d.lastViewed}`).join('\n');
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'devotion-stats.csv';
+    a.click();
+};
+
+/* INIT */
+loadPosts();
+loadVerses();
+loadTeam();
+loadReadingPlans();
+
+</script>
+
 </body>
 </html>
