@@ -1,308 +1,1021 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Our Daily Bread Ministries</title>
 
 <style>
-body { font-family: Georgia; background:#d2b48c; margin:0; }
+
+/* ===================== GENERAL ===================== */
+
+body {
+    font-family: Georgia;
+    background: #d2b48c;
+    margin: 0;
+}
+
+
+/* ===================== HEADER ===================== */
 
 header {
-    background:black;
-    color:#f5e6cc;
-    text-align:center;
-    padding:25px;
+    background: black;
+    color: #f5e6cc;
+    text-align: center;
+    padding: 25px;
 }
 
 .logo {
-    width:180px;
-    height:auto;
-    margin-bottom:10px;
+    width: 180px;
+    height: auto;
+    margin-bottom: 10px;
 }
+
+
+/* ===================== MAIN SECTION ===================== */
 
 .section {
-    max-width:900px;
-    margin:auto;
-    padding:20px;
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
 }
 
+
+/* ===================== NAVIGATION ===================== */
+
 .nav-buttons {
-    display:flex;
-    justify-content:center;
-    gap:10px;
-    margin-bottom:20px;
-    flex-wrap:wrap;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
 }
 
 .nav-buttons button {
-    background:black;
-    color:#f5e6cc;
-    padding:10px 20px;
-    border:none;
-    cursor:pointer;
-    border-radius:4px;
+    background: black;
+    color: #f5e6cc;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
 }
 
 .nav-buttons button:hover {
-    background:#333;
+    background: #333;
 }
 
+
+/* ===================== VERSE OF THE DAY ===================== */
+
 .verse-of-day {
-    background:linear-gradient(135deg,#8b4513,#a0522d);
-    color:#f5e6cc;
-    padding:30px;
-    border-radius:8px;
-    margin-bottom:30px;
-    text-align:center;
+    background: linear-gradient(135deg, #8b4513, #a0522d);
+    color: #f5e6cc;
+    padding: 30px;
+    border-radius: 8px;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+.verse-of-day h2 {
+    margin-top: 0;
 }
 
 .verse-text {
-    font-size:1.3em;
-    font-style:italic;
-    margin-bottom:10px;
+    font-size: 1.3em;
+    font-style: italic;
+    margin-bottom: 10px;
 }
 
 .verse-reference {
-    font-size:1.1em;
-    opacity:0.9;
+    font-size: 1.1em;
+    opacity: 0.9;
 }
 
+
+/* ===================== DEVOTIONAL HEADING ===================== */
+
+.devotionals-heading {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+
+/* ===================== DEVOTIONAL CARDS ===================== */
+
 .card {
-    background:#f5e6cc;
-    padding:20px;
-    margin-bottom:20px;
-    border-radius:8px;
+    background: #f5e6cc;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
 }
 
 .card img {
-    width:60%;
-    display:block;
-    margin:0 auto 10px;
+    width: 60%;
+    display: block;
+    margin: 0 auto 10px;
 }
+
+.month-theme-label {
+    color: #8b4513;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.daily-theme-label {
+    font-style: italic;
+    margin-top: 0;
+}
+
+
+/* ===================== BUTTONS ===================== */
 
 button {
-    background:black;
-    color:#f5e6cc;
-    padding:8px;
-    border:none;
-    cursor:pointer;
+    background: black;
+    color: #f5e6cc;
+    padding: 8px;
+    border: none;
+    cursor: pointer;
 }
 
-/* ===================== RESPONSIVE / MOBILE STYLES ===================== */
-
-@media (max-width:768px) {
-    header { padding:18px 15px; }
-    .logo { width:130px; }
-    header h1 { font-size:1.5em; margin:8px 0; }
-    header p { font-size:0.9em; margin:0; }
-
-    .section { padding:15px; }
-
-    .nav-buttons { flex-direction:column; align-items:stretch; }
-    .nav-buttons button { width:100%; }
-
-    .verse-of-day { padding:20px; }
-    .verse-text { font-size:1.1em; }
-    .verse-reference { font-size:1em; }
-
-    .card { padding:15px; }
-    .card img { width:85%; }
+button:hover {
+    background: #333;
 }
 
-@media (max-width:480px) {
-    header h1 { font-size:1.25em; }
-    .logo { width:100px; }
-    .section { padding:10px; }
-    .card img { width:100%; }
-    .verse-text { font-size:1em; }
+
+/* ===================== MOBILE / TABLET ===================== */
+
+@media (max-width: 768px) {
+
+    header {
+        padding: 18px 15px;
+    }
+
+    .logo {
+        width: 130px;
+    }
+
+    header h1 {
+        font-size: 1.5em;
+        margin: 8px 0;
+    }
+
+    header p {
+        font-size: 0.9em;
+        margin: 0;
+    }
+
+    .section {
+        padding: 15px;
+    }
+
+    .nav-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .nav-buttons button {
+        width: 100%;
+    }
+
+    .verse-of-day {
+        padding: 20px;
+    }
+
+    .verse-text {
+        font-size: 1.1em;
+    }
+
+    .verse-reference {
+        font-size: 1em;
+    }
+
+    .devotionals-heading {
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+
+    .card {
+        padding: 15px;
+    }
+
+    .card img {
+        width: 85%;
+    }
+
 }
 
-/* Set by JS once a touch/mobile device is detected. Catches cases a
-   width-only media query misses, e.g. a tablet held in landscape. */
+
+/* ===================== SMALL PHONES ===================== */
+
+@media (max-width: 480px) {
+
+    header h1 {
+        font-size: 1.25em;
+    }
+
+    .logo {
+        width: 100px;
+    }
+
+    .section {
+        padding: 10px;
+    }
+
+    .card img {
+        width: 100%;
+    }
+
+    .verse-text {
+        font-size: 1em;
+    }
+
+}
+
+
+/* ===================== TOUCH DEVICES ===================== */
+
 body.is-mobile button {
-    min-height:44px;
-    font-size:1em;
+    min-height: 44px;
+    font-size: 1em;
 }
+
 </style>
+
 </head>
 
 <body>
 
+<!-- ===================== HEADER ===================== -->
+
 <header>
-<img src="DailyBreadLogo.png" class="logo">
+
+```
+<img
+    src="DailyBreadLogo.png"
+    class="logo"
+    alt="Our Daily Bread Ministries Logo"
+>
+
 <h1>Our Daily Bread Ministries</h1>
+
 <p>Feeding on the Word daily</p>
+```
+
 </header>
+
+<!-- ===================== MAIN CONTENT ===================== -->
 
 <div class="section">
 
+```
+<!-- NAVIGATION -->
+
 <div class="nav-buttons">
-    <button onclick="window.location.href='calendar.html'">See all devotionals</button>
-    <button onclick="window.location.href='about.html'">About</button>
+
+    <button onclick="window.location.href='calendar.html'">
+        See all devotionals
+    </button>
+
+    <button onclick="window.location.href='about.html'">
+        About
+    </button>
+
 </div>
+
+
 
 <!-- VERSE OF THE DAY -->
+
 <div class="verse-of-day">
+
     <h2>Verse of the Day</h2>
-    <div class="verse-text" id="verseText">Loading...</div>
-    <div class="verse-reference" id="verseReference"></div>
+
+    <div
+        class="verse-text"
+        id="verseText"
+    >
+        Loading...
+    </div>
+
+    <div
+        class="verse-reference"
+        id="verseReference"
+    ></div>
+
 </div>
 
-<h2>Latest Devotionals</h2>
+
+
+<!-- LATEST DEVOTIONALS -->
+
+<h2 class="devotionals-heading">
+    Latest Devotionals
+</h2>
+
 <div id="posts"></div>
+```
 
 </div>
 
 <script type="module">
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+
+/* ===================== FIREBASE IMPORTS ===================== */
+
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+
+
 import {
     getFirestore,
     collection,
-    getDocs,
-    query,
-    where
+    getDocs
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
+
+
 /* ===================== MOBILE UI DETECTION ===================== */
-/* Feature-detection, not user-agent sniffing: a device is treated as
-   "mobile" if the viewport is narrow OR the primary input is a
-   touch-style pointer with no hover support (phones/tablets). Using
-   matchMedia's own change events means this updates live on resize,
-   rotation, or even plugging in a mouse -- no resize polling needed. */
+
 function applyMobileClass(mobile) {
-    document.body.classList.toggle("is-mobile", mobile);
-    document.body.classList.toggle("is-desktop", !mobile);
+
+    document.body.classList.toggle(
+        "is-mobile",
+        mobile
+    );
+
+    document.body.classList.toggle(
+        "is-desktop",
+        !mobile
+    );
+
     window.isMobileDevice = mobile;
+
 }
+
 
 function detectMobileUI() {
-    const narrowQuery = window.matchMedia("(max-width:768px)");
-    const touchPrimaryQuery = window.matchMedia("(pointer:coarse) and (hover:none)");
 
-    const evaluate = () =>
-        applyMobileClass(narrowQuery.matches || touchPrimaryQuery.matches);
+    const narrowQuery =
+        window.matchMedia("(max-width:768px)");
+
+
+    const touchPrimaryQuery =
+        window.matchMedia(
+            "(pointer:coarse) and (hover:none)"
+        );
+
+
+    const evaluate = () => {
+
+        applyMobileClass(
+
+            narrowQuery.matches ||
+            touchPrimaryQuery.matches
+
+        );
+
+    };
+
 
     evaluate();
-    narrowQuery.addEventListener("change", evaluate);
-    touchPrimaryQuery.addEventListener("change", evaluate);
+
+
+    narrowQuery.addEventListener(
+        "change",
+        evaluate
+    );
+
+
+    touchPrimaryQuery.addEventListener(
+        "change",
+        evaluate
+    );
+
 }
+
 
 detectMobileUI();
 
+
+
 /* ===================== FIREBASE ===================== */
+
 const firebaseConfig = {
-  apiKey: "AIzaSyA3g--TT89iLyEQ5lvwI7mBcIygrls7iCQ",
-  authDomain: "daily-bread-973e9.firebaseapp.com",
-  projectId: "daily-bread-973e9"
+
+    apiKey:
+        "AIzaSyA3g--TT89iLyEQ5lvwI7mBcIygrls7iCQ",
+
+    authDomain:
+        "daily-bread-973e9.firebaseapp.com",
+
+    projectId:
+        "daily-bread-973e9"
+
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
 
-/* ===================== VERSE OF THE DAY (FIXED) ===================== */
+const app =
+    initializeApp(firebaseConfig);
+
+
+const db =
+    getFirestore(app);
+
+
+
+/* ===================== LOCAL DATE HELPER ===================== */
+
+function getLocalDateString(date = new Date()) {
+
+    const year =
+        date.getFullYear();
+
+    const month =
+        String(
+            date.getMonth() + 1
+        ).padStart(2, "0");
+
+    const day =
+        String(
+            date.getDate()
+        ).padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
+
+}
+
+
+
+/* ===================== VERSE OF THE DAY ===================== */
+
 async function loadVerseOfDay() {
 
     try {
-        const snap = await getDocs(collection(db, "dailyVerses"));
 
-        const today = new Date().toISOString().split("T")[0];
+        const snap =
+            await getDocs(
+                collection(
+                    db,
+                    "dailyVerses"
+                )
+            );
 
-        let verseToday = null;
+
+        const today =
+            getLocalDateString();
+
+
+        let verseToday =
+            null;
+
 
         snap.forEach(doc => {
-            const v = doc.data();
 
-            if (v.date === today) {
-                verseToday = v;
+            const verse =
+                doc.data();
+
+
+            if (
+                verse.date === today
+            ) {
+
+                verseToday =
+                    verse;
+
             }
+
         });
 
+
+        /* No verse scheduled */
+
         if (!verseToday) {
-            document.getElementById("verseText").textContent =
-                "No verse scheduled for today.";
-            document.getElementById("verseReference").textContent = "";
+
+            document
+                .getElementById(
+                    "verseText"
+                )
+                .textContent =
+                    "No verse scheduled for today.";
+
+
+            document
+                .getElementById(
+                    "verseReference"
+                )
+                .textContent =
+                    "";
+
+
             return;
+
         }
 
-        document.getElementById("verseText").textContent =
-            `"${verseToday.verse}"`;
 
-        document.getElementById("verseReference").textContent =
-            verseToday.reference;
+        /* Display verse */
 
-    } catch (err) {
-        console.error(err);
-        document.getElementById("verseText").textContent =
-            "Error loading verse.";
+        document
+            .getElementById(
+                "verseText"
+            )
+            .textContent =
+                `"${verseToday.verse}"`;
+
+
+        document
+            .getElementById(
+                "verseReference"
+            )
+            .textContent =
+                verseToday.reference || "";
+
+
     }
+
+    catch (err) {
+
+        console.error(
+            "Verse loading error:",
+            err
+        );
+
+
+        document
+            .getElementById(
+                "verseText"
+            )
+            .textContent =
+                "Error loading verse.";
+
+    }
+
 }
 
-/* ===================== DEVOTIONALS ===================== */
+
+
+/* ===================== LOAD DEVOTIONALS ===================== */
+
 async function loadPosts() {
 
-    const container = document.getElementById("posts");
-    container.innerHTML = "";
+    const container =
+        document.getElementById(
+            "posts"
+        );
 
-    const snap = await getDocs(collection(db, "posts"));
-    const now = new Date();
 
-    let posts = [];
+    container.innerHTML =
+        "";
 
-    snap.forEach(doc => {
-        const p = doc.data();
-        if (!p.publishDate || new Date(p.publishDate) <= now) {
-            posts.push({ ...p, id: doc.id });
+
+    try {
+
+        const snap =
+            await getDocs(
+                collection(
+                    db,
+                    "posts"
+                )
+            );
+
+
+        const now =
+            new Date();
+
+
+        let publishedPosts =
+            [];
+
+
+        /* =====================
+           ONLY PUBLISHED POSTS
+        ===================== */
+
+        snap.forEach(doc => {
+
+            const post =
+                doc.data();
+
+
+            if (
+
+                !post.publishDate ||
+
+                new Date(
+                    post.publishDate
+                ) <= now
+
+            ) {
+
+                publishedPosts.push({
+
+                    ...post,
+
+                    id:
+                        doc.id
+
+                });
+
+            }
+
+        });
+
+
+
+        /* =====================
+           SORT NEWEST FIRST
+        ===================== */
+
+        publishedPosts.sort(
+
+            (a, b) =>
+
+                new Date(
+                    b.publishDate || 0
+                )
+
+                -
+
+                new Date(
+                    a.publishDate || 0
+                )
+
+        );
+
+
+
+        /* =====================
+           SHOW 3 LATEST
+        ===================== */
+
+        const recent =
+            publishedPosts.slice(
+                0,
+                3
+            );
+
+
+
+        /* =====================
+           NO DEVOTIONALS
+        ===================== */
+
+        if (
+            recent.length === 0
+        ) {
+
+            container.innerHTML = `
+
+                <div class="card">
+
+                    <p>
+                        No devotionals have
+                        been published yet.
+                    </p>
+
+                </div>
+
+            `;
+
+            return;
+
         }
-    });
 
-    posts.sort((a,b)=>
-        new Date(b.publishDate || 0) - new Date(a.publishDate || 0)
-    );
 
-    const recent = posts.slice(0,3);
 
-    recent.forEach(post => {
+        /* =====================
+           CREATE CARDS
+        ===================== */
 
-        container.innerHTML += `
-        <div class="card">
-            ${post.image ? `<img src="${post.image}" loading="lazy">` : ""}
-            <h3>${post.day} – ${post.title}</h3>
-            <p><strong>${post.scripture}</strong></p>
-            <p>${post.preview}</p>
-            <button onclick="showFull('${post.id}')">Read Full</button>
-        </div>`;
-    });
+        recent.forEach(post => {
+
+
+            const imageHTML =
+
+                post.image
+
+                    ? `
+
+                        <img
+                            src="${post.image}"
+                            loading="lazy"
+                            alt="${post.title || "Devotional image"}"
+                        >
+
+                    `
+
+                    : "";
+
+
+
+            const monthThemeHTML =
+
+                post.monthTheme
+
+                    ? `
+
+                        <p class="month-theme-label">
+
+                            ${post.monthTheme}
+
+                        </p>
+
+                    `
+
+                    : "";
+
+
+
+            const dailyThemeHTML =
+
+                post.dailyTheme
+
+                    ? `
+
+                        <p class="daily-theme-label">
+
+                            ${post.dailyTheme}
+
+                        </p>
+
+                    `
+
+                    : "";
+
+
+
+            container.innerHTML += `
+
+                <div class="card">
+
+                    ${imageHTML}
+
+                    ${monthThemeHTML}
+
+                    ${dailyThemeHTML}
+
+
+                    <h3>
+
+                        ${post.day || ""}
+
+                        –
+
+                        ${post.title || "Untitled"}
+
+                    </h3>
+
+
+                    <p>
+
+                        <strong>
+
+                            ${post.scripture || ""}
+
+                        </strong>
+
+                    </p>
+
+
+                    <p>
+
+                        ${post.preview || ""}
+
+                    </p>
+
+
+                    <button
+                        onclick="showFull('${post.id}')"
+                    >
+
+                        Read Full
+
+                    </button>
+
+
+                </div>
+
+            `;
+
+
+        });
+
+
+    }
+
+    catch (err) {
+
+        console.error(
+            "Post loading error:",
+            err
+        );
+
+
+        container.innerHTML = `
+
+            <div class="card">
+
+                <p>
+                    Error loading devotionals.
+                </p>
+
+            </div>
+
+        `;
+
+    }
+
 }
 
-/* ===================== FULL VIEW ===================== */
-window.showFull = async function(id) {
 
-    const snap = await getDocs(collection(db, "posts"));
 
-    let post = null;
+/* ===================== FULL DEVOTIONAL VIEW ===================== */
+
+window.showFull =
+async function(id) {
+
+
+    const snap =
+        await getDocs(
+            collection(
+                db,
+                "posts"
+            )
+        );
+
+
+    let post =
+        null;
+
 
     snap.forEach(doc => {
-        if (doc.id === id) post = doc.data();
+
+        if (
+            doc.id === id
+        ) {
+
+            post =
+                doc.data();
+
+        }
+
     });
 
-    if (!post) return;
 
-    document.getElementById("posts").innerHTML = `
-    <div class="card">
-        <h2>${post.day} – ${post.title}</h2>
-        <p><strong>${post.scripture}</strong></p>
-        <p>${post.content}</p>
-        <button onclick="location.reload()">← Back</button>
-    </div>`;
+    if (
+        !post
+    ) {
+
+        return;
+
+    }
+
+
+
+    const imageHTML =
+
+        post.image
+
+            ? `
+
+                <img
+                    src="${post.image}"
+                    alt="${post.title || "Devotional image"}"
+                >
+
+            `
+
+            : "";
+
+
+
+    const monthThemeHTML =
+
+        post.monthTheme
+
+            ? `
+
+                <p class="month-theme-label">
+
+                    ${post.monthTheme}
+
+                </p>
+
+            `
+
+            : "";
+
+
+
+    const dailyThemeHTML =
+
+        post.dailyTheme
+
+            ? `
+
+                <p class="daily-theme-label">
+
+                    ${post.dailyTheme}
+
+                </p>
+
+            `
+
+            : "";
+
+
+
+    document
+        .getElementById(
+            "posts"
+        )
+        .innerHTML = `
+
+            <div class="card">
+
+                ${imageHTML}
+
+                ${monthThemeHTML}
+
+                ${dailyThemeHTML}
+
+
+                <h2>
+
+                    ${post.day || ""}
+
+                    –
+
+                    ${post.title || "Untitled"}
+
+                </h2>
+
+
+                <p>
+
+                    <strong>
+
+                        ${post.scripture || ""}
+
+                    </strong>
+
+                </p>
+
+
+                <p>
+
+                    ${post.content || ""}
+
+                </p>
+
+
+                <button
+                    onclick="location.reload()"
+                >
+
+                    ← Back
+
+                </button>
+
+
+            </div>
+
+        `;
+
+
+
+    window.scrollTo({
+
+        top:
+            document
+                .getElementById(
+                    "posts"
+                )
+                .offsetTop - 20,
+
+        behavior:
+            "smooth"
+
+    });
+
+
 };
 
-/* ===================== INIT ===================== */
+
+
+/* ===================== INITIAL LOAD ===================== */
+
 loadVerseOfDay();
+
 loadPosts();
+
 
 </script>
 
 </body>
+
 </html>
