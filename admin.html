@@ -366,6 +366,10 @@ label {
         
         <div class="stats-summary">
             <div class="stat-card">
+                <h3>Total Site Visits</h3>
+                <p class="stat-number" id="totalSiteVisits">0</p>
+            </div>
+            <div class="stat-card">
                 <h3>Total Views</h3>
                 <p class="stat-number" id="totalViews">0</p>
             </div>
@@ -786,7 +790,24 @@ document.getElementById('deleteReadingPlanBtn').addEventListener('click', async 
 document.getElementById('refreshReadingPlansBtn').addEventListener('click', () => loadReadingPlans());
 
 /* ================= STATISTICS ================= */
+
+/* Total site visits, tracked from index.html and archive.html.
+   This number is only ever read here -- the public pages write
+   to it but never display it. */
+async function loadSiteVisits() {
+    try {
+        const snap = await getDoc(doc(db, "siteStats", "totals"));
+        const visits = snap.exists() ? (snap.data().visits || 0) : 0;
+        document.getElementById('totalSiteVisits').textContent = visits;
+    } catch (err) {
+        console.error("Could not load site visits:", err);
+        document.getElementById('totalSiteVisits').textContent = "—";
+    }
+}
+
 window.loadStatistics = async function() {
+    loadSiteVisits();
+
     const snap = await getDocs(collection(db, "posts"));
     const stats = {};
     
