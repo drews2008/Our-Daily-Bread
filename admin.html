@@ -102,6 +102,25 @@ label {
     font-weight:bold;
 }
 
+.day-theme-hint {
+    background:#fffaf0;
+    border-left:4px solid #8b4513;
+    padding:8px 12px;
+    margin:-4px 0 12px;
+    font-size:0.9em;
+    color:#4a3a2a;
+    border-radius:2px;
+    display:none;
+}
+
+.day-theme-hint.visible {
+    display:block;
+}
+
+.day-theme-hint b {
+    color:#8b4513;
+}
+
 /* Stats Section Styles */
 .stats-summary {
     display: grid;
@@ -243,6 +262,8 @@ label {
             <option>Friday</option>
             <option>Saturday</option>
         </select>
+
+        <div id="dayThemeHint" class="day-theme-hint"></div>
 
         <label>Scripture</label>
         <input id="scripture">
@@ -415,6 +436,54 @@ let editPostId = null;
 let editTeamId = null;
 let base64ImageString = ""; 
 
+/* ================= DAY THEMES ================= */
+/* Fixed weekly themes shown as a reference next to the Day picker.
+   Sunday has no theme defined yet. */
+const DAY_THEMES = {
+    Monday: {
+        title: "That'll Preach",
+        description: "A short, powerful biblical truth or illustration that \"preaches\" and encourages."
+    },
+    Tuesday: {
+        title: "You've Been Challenged!!!",
+        description: "A challenge to apply God's Word personally and grow spiritually."
+    },
+    Wednesday: {
+        title: "I Wanna Be Like Them",
+        description: "Learning from the lives of faithful men and women in Scripture."
+    },
+    Thursday: {
+        title: "Take That Devil!!!",
+        description: "Spiritual warfare, Christ's victory over Satan, and standing on biblical truth."
+    },
+    Friday: {
+        title: "Culture Shock",
+        description: ""
+    },
+    Saturday: {
+        title: "You Can Stand On It",
+        description: "God's promises and the unchanging reliability of His Word."
+    }
+};
+
+window.updateDayThemeHint = function() {
+    const day = document.getElementById("day").value;
+    const hint = document.getElementById("dayThemeHint");
+    const theme = DAY_THEMES[day];
+
+    if (!theme) {
+        hint.classList.remove("visible");
+        hint.innerHTML = "";
+        return;
+    }
+
+    hint.innerHTML = `<b>${day} theme: ${theme.title}</b>` +
+        (theme.description ? ` — ${theme.description}` : "");
+    hint.classList.add("visible");
+};
+
+document.getElementById("day").addEventListener("change", window.updateDayThemeHint);
+
 /* ================= IMAGE PREVIEW UTILITY ================= */
 window.previewImage = function(event) {
     const file = event.target.files[0];
@@ -472,6 +541,7 @@ window.savePost = async function() {
     document.getElementById("preview").value = "";
     document.getElementById("content").value = "";
     document.getElementById("publishDate").value = "";
+    window.updateDayThemeHint();
 
     loadPosts();
 };
@@ -490,6 +560,7 @@ window.editPost = async function(id) {
         document.getElementById("content").value = p.content || "";
         document.getElementById("publishDate").value = p.publishDate || "";
         editPostId = id;
+        window.updateDayThemeHint();
         window.scrollTo({top: 0, behavior: 'smooth'});
     }
 };
