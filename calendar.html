@@ -752,6 +752,7 @@ import {
     collection,
     getDocs,
     doc,
+    setDoc,
     updateDoc,
     increment
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
@@ -785,6 +786,36 @@ const app =
 
 const db =
     getFirestore(app);
+
+
+/* =========================
+   SITE VISIT TRACKING
+========================= */
+
+/*
+    One counter shared across every page (index,
+    archive, admin) so the admin Stats tab can show
+    total site visits. This page never displays the
+    count itself -- only admin.html reads it.
+*/
+
+function trackSiteVisit() {
+
+    setDoc(
+        doc(db, "siteStats", "totals"),
+        {
+            visits: increment(1),
+            lastVisit: new Date().toISOString()
+        },
+        { merge: true }
+    ).catch(err =>
+        console.error(
+            "Could not record site visit:",
+            err
+        )
+    );
+
+}
 
 
 /* =========================
@@ -1637,6 +1668,7 @@ function updateStats() {
    INITIALIZE
 ========================= */
 
+trackSiteVisit();
 loadPosts();
 
 </script>
