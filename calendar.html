@@ -274,6 +274,16 @@ button.secondary:hover {
     letter-spacing: 0.5px;
 }
 
+.day-header .theme-name {
+    display: block;
+    font-size: 0.72em;
+    font-weight: normal;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    color: #d9b98a;
+    margin-top: 3px;
+}
+
 .day-content {
     padding: 18px;
     display: flex;
@@ -367,6 +377,15 @@ button.secondary:hover {
     color: #000;
     font-size: 1.8em;
     padding-right: 30px;
+}
+
+.modal-theme {
+    color: #8b4513;
+    font-size: 0.85em;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
 }
 
 .modal-scripture {
@@ -731,7 +750,10 @@ import {
 import {
     getFirestore,
     collection,
-    getDocs
+    getDocs,
+    doc,
+    updateDoc,
+    increment
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 
@@ -763,6 +785,50 @@ const app =
 
 const db =
     getFirestore(app);
+
+
+/* =========================
+   DAY THEMES
+========================= */
+
+/*
+    Fixed weekly themes. Sunday has no theme
+    defined yet, so it's left out.
+*/
+
+const DAY_THEMES = {
+
+    Monday: {
+        title: "That'll Preach",
+        description: "A short, powerful biblical truth or illustration that \"preaches\" and encourages."
+    },
+
+    Tuesday: {
+        title: "You've Been Challenged!!!",
+        description: "A challenge to apply God's Word personally and grow spiritually."
+    },
+
+    Wednesday: {
+        title: "I Wanna Be Like Them",
+        description: "Learning from the lives of faithful men and women in Scripture."
+    },
+
+    Thursday: {
+        title: "Take That Devil!!!",
+        description: "Spiritual warfare, Christ's victory over Satan, and standing on biblical truth."
+    },
+
+    Friday: {
+        title: "Culture Shock",
+        description: ""
+    },
+
+    Saturday: {
+        title: "You Can Stand On It",
+        description: "God's promises and the unchanging reliability of His Word."
+    }
+
+};
 
 
 /* =========================
@@ -1098,6 +1164,15 @@ function render(posts) {
                                 );
 
 
+                            const theme =
+                                DAY_THEMES[post.day];
+
+                            const themeName =
+                                theme
+                                    ? `<span class="theme-name">${theme.title}</span>`
+                                    : "";
+
+
                             return `
 
                                 <div class="day-card">
@@ -1107,6 +1182,7 @@ function render(posts) {
                                             post.day ||
                                             "Devotional"
                                         }
+                                        ${themeName}
                                     </div>
 
 
@@ -1233,6 +1309,26 @@ window.openPost = function(id) {
     }
 
 
+    /*
+        Track that this devotional was read, so the
+        admin Stats tab has real numbers instead of
+        always showing 0.
+    */
+
+    updateDoc(
+        doc(db, "posts", id),
+        {
+            views: increment(1),
+            lastViewed: new Date().toISOString()
+        }
+    ).catch(err =>
+        console.error(
+            "Could not record view:",
+            err
+        )
+    );
+
+
     const date =
         new Date(
             post.publishDate
@@ -1250,11 +1346,22 @@ window.openPost = function(id) {
         );
 
 
+    const theme =
+        DAY_THEMES[post.day];
+
+    const themeBlock =
+        theme
+            ? `<div class="modal-theme">${theme.title}</div>`
+            : "";
+
+
     document
         .getElementById(
             "devotionalContent"
         )
         .innerHTML = `
+
+            ${themeBlock}
 
             <h2>
                 ${
